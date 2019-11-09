@@ -50,7 +50,7 @@
         }
 
         addItem(): void {
-            console.log("add item");
+            this.$router.push("/add-product-list")
         }
 
         editItem(key: string): void {
