@@ -6,7 +6,7 @@
                     color="teal"
                     dark
                 )
-                    v-toolbar-title {{productList.title || "Новый список"}}
+                    v-toolbar-title {{product.title || "Новый продукт"}}
 
                 v-form
                     v-container
@@ -16,7 +16,7 @@
                                 md="4"
                             )
                                 v-text-field(
-                                    v-model="productList.title"
+                                    v-model="product.title"
                                     label="Заголовок"
                                     required
                                 )
@@ -32,30 +32,28 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { ProductList } from "@/models/ProductList";
-import { IProductListService } from "@/services/IProductListService";
 import { container } from "tsyringe";
+import { Product } from "@/models/Product";
+import { IProductService } from "@/services/IProductService";
 
 @Component
-export default class ProductListForm extends Vue {
-  public productList: ProductList = new ProductList();
+export default class ProductForm extends Vue {
+  public product: Product = new Product();
 
-  private readonly productListService: IProductListService = container.resolve(
-    "IProductListService"
+  private readonly productService: IProductService = container.resolve(
+    "IProductService"
   );
 
   created() {
     if (this.$route.params.id) {
-      this.productListService
-        .get(parseInt(this.$route.params.id))
-        .then(item => {
-          this.productList = item;
-        });
+      this.productService.get(parseInt(this.$route.params.id)).then(item => {
+        this.product = item;
+      });
     }
   }
 
   create(): void {
-    this.productListService.save(this.productList).then(() => {
+    this.productService.save(this.product).then(() => {
       this.$router.go(-1);
     });
   }

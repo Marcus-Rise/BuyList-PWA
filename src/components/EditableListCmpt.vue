@@ -16,20 +16,19 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "vue-property-decorator";
-    import { IEditableListItem } from "@/components/IEditableListItem";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { IEditableListItem } from "@/components/IEditableListItem";
 
-    @Component
-    export default class EditableListCmpt extends Vue {
-        @Prop({ required: true }) public readonly items!: IEditableListItem[];
+@Component
+export default class EditableListCmpt extends Vue {
+  @Prop({ required: true }) public readonly items!: IEditableListItem[];
 
-        addItem(): void {
-            this.$emit("add");
-        }
+  addItem(): void {
+    this.$emit("add");
+  }
 
-        editItem(key: string): void {
-            this.$emit("edit", key);
-        }
-    }
+  editItem(key: string): void {
+    this.$emit("edit", key);
+  }
+}
 </script>
-

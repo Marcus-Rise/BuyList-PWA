@@ -6,10 +6,10 @@
                     color="teal"
                     dark
                 )
-                    v-toolbar-title Списки
+                    v-toolbar-title Продукты
 
                 editable-list-cmpt(
-                    :items="productListView"
+                    :items="productsView"
                     @add="addItem"
                     @edit="editItem"
                 )
@@ -17,18 +17,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { ProductList } from "@/models/ProductList";
-import { IProductListService } from "@/services/IProductListService";
 import { container } from "tsyringe";
 import EditableListCmpt from "@/components/EditableListCmpt.vue";
 import { IEditableListItem } from "@/components/IEditableListItem";
+import { Product } from "@/models/Product";
+import { IProductService } from "@/services/IProductService";
 
 @Component({
   components: { EditableListCmpt }
 })
-export default class ProductListArrayView extends Vue {
-  get productListView(): IEditableListItem[] {
-    return this.productListArray.map(item => {
+export default class ProductArrayView extends Vue {
+  get productsView(): IEditableListItem[] {
+    return this.productArray.map(item => {
       return {
         title: item.title,
         key: item.id.toString(),
@@ -37,24 +37,24 @@ export default class ProductListArrayView extends Vue {
     });
   }
 
-  public productListArray: ProductList[] = [];
+  public productArray: Product[] = [];
 
-  private readonly productListService: IProductListService = container.resolve(
-    "IProductListService"
+  private readonly productService: IProductService = container.resolve(
+    "IProductService"
   );
 
   created() {
-    this.productListService.getAll().then(items => {
-      this.productListArray.push(...items);
+    this.productService.getAll().then(items => {
+      this.productArray.push(...items);
     });
   }
 
   addItem(): void {
-    this.$router.push({ name: "addProductList" });
+    this.$router.push({ name: "addProduct" });
   }
 
   editItem(key: string): void {
-    this.$router.push({ name: "editProductList", params: { id: key } });
+    this.$router.push({ name: "editProduct", params: { id: key } });
   }
 }
 </script>

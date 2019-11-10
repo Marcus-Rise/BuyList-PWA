@@ -3,4 +3,3 @@
         v-container
             router-view
 </template>
-

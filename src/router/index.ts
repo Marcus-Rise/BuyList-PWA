@@ -14,11 +14,31 @@ const routes = [
   },
   {
     path: "/add-product-list",
-    name: "addProductLst",
+    name: "addProductList",
     component: () =>
       import(
-        /* webpackChunkName: "addProductLst" */ "@/views/ProductListForm.vue"
+        /* webpackChunkName: "addProductList" */ "@/views/ProductListForm.vue"
       )
+  },
+  {
+    path: "/edit-product-list/:id",
+    name: "editProductList",
+    component: () =>
+      import(
+        /* webpackChunkName: "addProductList" */ "@/views/ProductListForm.vue"
+      )
+  },
+  {
+    path: "/add-product",
+    name: "addProduct",
+    component: () =>
+      import(/* webpackChunkName: "addProduct" */ "@/views/ProductForm.vue")
+  },
+  {
+    path: "/edit-product/:id",
+    name: "editProduct",
+    component: () =>
+      import(/* webpackChunkName: "addProduct" */ "@/views/ProductForm.vue")
   }
 ];
 
