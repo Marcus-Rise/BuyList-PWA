@@ -1,5 +1,7 @@
 <template lang="pug">
     v-app
         v-container
-            router-view
+            transition
+                keep-alive
+                    router-view
 </template>
