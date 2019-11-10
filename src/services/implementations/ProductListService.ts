@@ -1,23 +1,34 @@
 import { IProductListService } from "@/services/IProductListService";
 import { ProductList } from "@/models/ProductList";
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
+import { IStorageService } from "@/services/IStorageService";
 
 @injectable()
 export class ProductListService implements IProductListService {
-  private readonly items: ProductList[] = [
-    new ProductList("awdwa", 1),
-    new ProductList("awdawdawdawd", 2)
-  ];
+  private readonly table: string = "product-list";
+
+  constructor(
+    @inject("IStorageService")
+    private readonly storageService: IStorageService
+  ) {}
 
   async getAll(): Promise<ProductList[]> {
-    return this.items;
+    return this.storageService.getAll<ProductList>(this.table);
   }
 
-  async save(item: ProductList): Promise<void> {
-    this.items.push(item);
+  async save(item: ProductList): Promise<ProductList> {
+    const length: number = await this.storageService.length(this.table);
+
+    item.id = length + 1;
+
+    return this.storageService.set<ProductList>(
+      this.table,
+      item.id.toString(),
+      item
+    );
   }
 
   async get(id: number): Promise<ProductList> {
-    return this.items.filter((item: ProductList) => item.id === id)[0];
+    return this.storageService.get<ProductList>(this.table, id.toString());
   }
 }

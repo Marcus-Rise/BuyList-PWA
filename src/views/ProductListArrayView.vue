@@ -46,6 +46,7 @@ export default class ProductListArrayView extends Vue {
 
   created() {
     this.productListService.getAll().then(items => {
+      this.productListArray.length = 0;
       this.productListArray.push(...items);
     });
   }
