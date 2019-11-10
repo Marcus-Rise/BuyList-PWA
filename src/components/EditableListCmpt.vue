@@ -9,7 +9,7 @@
                     v-icon(small) fa-pen
 
         v-row(justify="end")
-            v-col(cols="3")
+            v-col(sm="auto")
                 v-btn( @click="addItem()" class="mx-2" fab dark color="indigo")
                     v-icon(dark) fa-plus
 
