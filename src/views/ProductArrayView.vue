@@ -1,12 +1,12 @@
 <template lang="pug">
     v-row
         v-col
-            v-card.mx-auto
+            v-card.mx-auto(v-if="!!productList")
                 v-toolbar(
                     color="teal"
                     dark
                 )
-                    v-toolbar-title Продукты
+                    v-toolbar-title Продукты списка {{ productList.title }}
 
                 editable-list-cmpt(
                     :items="productsView"
@@ -16,45 +16,63 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { container } from "tsyringe";
-import EditableListCmpt from "@/components/EditableListCmpt.vue";
-import { IEditableListItem } from "@/components/IEditableListItem";
-import { Product } from "@/models/Product";
-import { IProductService } from "@/services/IProductService";
+    import { Component, Vue } from "vue-property-decorator";
+    import { container } from "tsyringe";
+    import EditableListCmpt from "@/components/EditableListCmpt.vue";
+    import { IEditableListItem } from "@/components/IEditableListItem";
+    import { Product } from "@/models/Product";
+    import { IProductService } from "@/services/IProductService";
+    import { ProductList } from "@/models/ProductList";
+    import { IProductListService } from "@/services/IProductListService";
 
-@Component({
-  components: { EditableListCmpt }
-})
-export default class ProductArrayView extends Vue {
-  get productsView(): IEditableListItem[] {
-    return this.productArray.map(item => {
-      return {
-        title: item.title,
-        key: item.id.toString(),
-        secondary: `id: ${item.id}`
-      };
-    });
-  }
+    @Component({
+        components: { EditableListCmpt }
+    })
+    export default class ProductArrayView extends Vue {
+        get productsView(): IEditableListItem[] {
+            return this.productArray.map(item => {
+                return {
+                    title: item.title,
+                    key: item.id.toString(),
+                    secondary: `id: ${item.id}`
+                };
+            });
+        }
 
-  public productArray: Product[] = [];
+        public productArray: Product[] = [];
+        public productList: ProductList | null = null;
 
-  private readonly productService: IProductService = container.resolve(
-    "IProductService"
-  );
+        private readonly productService: IProductService = container.resolve(
+            "IProductService"
+        );
+        private readonly productListService: IProductListService = container.resolve(
+            "IProductListService"
+        );
 
-  created() {
-    this.productService.getAll().then(items => {
-      this.productArray.push(...items);
-    });
-  }
+        created() {
+            this.productListService.get(parseInt(this.$route.params.id))
+                .then((item) => {
+                    this.productList = item;
+                });
 
-  addItem(): void {
-    this.$router.push({ name: "addProduct" });
-  }
+            this.productService.getAll().then(items => {
+                this.productArray.push(...items);
+            });
+        }
 
-  editItem(key: string): void {
-    this.$router.push({ name: "editProduct", params: { id: key } });
-  }
-}
+        addItem(): void {
+            this.$router.push({
+                name: "addProduct",
+                params: {
+                    productListId: this.productList
+                        ? this.productList.id.toString()
+                        : "0"
+                }
+            });
+        }
+
+        editItem(key: string): void {
+            this.$router.push({ name: "editProduct", params: { id: key } });
+        }
+    }
 </script>

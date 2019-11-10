@@ -25,11 +25,19 @@ const routes = [
     name: "editProductList",
     component: () =>
       import(
-        /* webpackChunkName: "addProductList" */ "@/views/ProductListForm.vue"
+        /* webpackChunkName: "editProductList" */ "@/views/ProductListForm.vue"
       )
   },
   {
-    path: "/add-product",
+    path: "/product-list/:id",
+    name: "productList",
+    component: () =>
+      import(
+        /* webpackChunkName: "productList" */ "@/views/ProductArrayView.vue"
+      )
+  },
+  {
+    path: "/add-product/:productListId",
     name: "addProduct",
     component: () =>
       import(/* webpackChunkName: "addProduct" */ "@/views/ProductForm.vue")
@@ -38,7 +46,7 @@ const routes = [
     path: "/edit-product/:id",
     name: "editProduct",
     component: () =>
-      import(/* webpackChunkName: "addProduct" */ "@/views/ProductForm.vue")
+      import(/* webpackChunkName: "editProduct" */ "@/views/ProductForm.vue")
   }
 ];
 

@@ -50,6 +50,10 @@ export default class ProductForm extends Vue {
         this.product = item;
       });
     }
+
+    if (this.$route.params.productListId) {
+        this.product.id = parseInt(this.$route.params.productListId);
+    }
   }
 
   create(): void {
