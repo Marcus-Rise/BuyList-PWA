@@ -44,8 +44,11 @@ export default class ProductListArrayView extends Vue {
     "IProductListService"
   );
 
-  created() {
+  mounted() {
+    console.log("mounted");
+
     this.productListService.getAll().then(items => {
+      this.productListArray.length = 0;
       this.productListArray.push(...items);
     });
   }

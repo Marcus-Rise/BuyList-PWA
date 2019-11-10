@@ -2,6 +2,5 @@
     v-app
         v-container
             transition
-                keep-alive
-                    router-view
+                router-view
 </template>
