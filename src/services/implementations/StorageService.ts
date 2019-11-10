@@ -1,30 +1,23 @@
 import { IStorageService } from "@/services/IStorageService";
-import { singleton } from "tsyringe";
+import { injectable } from "tsyringe";
 import localForage from "localforage";
-import { DBConfigException } from "@/core/Exception/DBConfigException";
 
-@singleton()
+@injectable()
 export class StorageService implements IStorageService {
-  private static readonly dbName: string = "buy-list-app";
+  private readonly dbName: string = "buy-list-app";
 
   async get<T>(table: string, key: string): Promise<T> {
-    StorageService.config(table);
-
-    return localForage.getItem<T>(key);
+    return this.db(table).getItem<T>(key);
   }
 
   async set<T>(table: string, key: string, value: T): Promise<T> {
-    StorageService.config(table);
-
-    return localForage.setItem<T>(key, value);
+    return this.db(table).setItem<T>(key, value);
   }
 
   async getAll<T>(table: string): Promise<T[]> {
-    StorageService.config(table);
-
     const array: T[] = [];
 
-    await localForage.iterate(item => {
+    await this.db(table).iterate(item => {
       array.push(item as T);
     });
 
@@ -32,20 +25,14 @@ export class StorageService implements IStorageService {
   }
 
   async length(table: string): Promise<number> {
-    StorageService.config(table);
-
-    return localForage.length();
+    return this.db(table).length();
   }
 
-  private static config(table: string): void {
-    if (
-      !localForage.config({
-        driver: localForage.INDEXEDDB,
-        name: StorageService.dbName,
-        storeName: table
-      })
-    ) {
-      throw new DBConfigException(table);
-    }
+  private db(table: string): LocalForage {
+    return localForage.createInstance({
+      driver: localForage.INDEXEDDB,
+      name: this.dbName,
+      storeName: table
+    });
   }
 }
