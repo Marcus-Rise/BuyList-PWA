@@ -45,7 +45,7 @@ export default class ProductListForm extends Vue {
   );
 
   created() {
-    if (this.$route.params.id) {
+    if (this.$route.params.id !== undefined) {
       this.productListService
         .get(parseInt(this.$route.params.id))
         .then(item => {

@@ -44,15 +44,15 @@ export default class ProductForm extends Vue {
     "IProductService"
   );
 
-  created() {
-    if (this.$route.params.id) {
+  mounted() {
+    if (this.$route.params.id !== undefined) {
       this.productService.get(parseInt(this.$route.params.id)).then(item => {
         this.product = item;
       });
     }
 
-    if (this.$route.params.productListId) {
-      this.product.id = parseInt(this.$route.params.productListId);
+    if (this.$route.params.productListId !== undefined) {
+      this.product.productListId = parseInt(this.$route.params.productListId);
     }
   }
 

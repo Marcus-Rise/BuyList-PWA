@@ -5,7 +5,7 @@ import { IStorageService } from "@/services/IStorageService";
 
 @injectable()
 export class ProductListService implements IProductListService {
-  private static readonly table: string = "product-list";
+  private readonly table: string = "product-list";
 
   constructor(
     @inject("IStorageService")
@@ -13,27 +13,22 @@ export class ProductListService implements IProductListService {
   ) {}
 
   async getAll(): Promise<ProductList[]> {
-    return this.storageService.getAll<ProductList>(ProductListService.table);
+    return this.storageService.getAll<ProductList>(this.table);
   }
 
   async save(item: ProductList): Promise<ProductList> {
-    const length: number = await this.storageService.length(
-      ProductListService.table
-    );
+    const length: number = await this.storageService.length(this.table);
 
     item.id = length + 1;
 
     return this.storageService.set<ProductList>(
-      ProductListService.table,
+      this.table,
       item.id.toString(),
       item
     );
   }
 
   async get(id: number): Promise<ProductList> {
-    return this.storageService.get<ProductList>(
-      ProductListService.table,
-      id.toString()
-    );
+    return this.storageService.get<ProductList>(this.table, id.toString());
   }
 }
