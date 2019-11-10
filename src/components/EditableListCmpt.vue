@@ -1,6 +1,6 @@
 <template lang="pug">
-   v-list
-        v-list-item(v-for="item of items" :key="item.key")
+    v-list
+        v-list-item(v-for="item of items" :key="item.key" :to="item.href")
             v-list-item-content
                 v-list-item-title {{item.title}}
                 v-list-item-subtitle {{item.secondary}}
