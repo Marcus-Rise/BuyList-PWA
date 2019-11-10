@@ -36,4 +36,10 @@ export class ProductService implements IProductService {
       item
     );
   }
+
+  async getByList(id: number): Promise<Product[]> {
+    const array: Product[] = await this.getAll();
+
+    return array.filter(item => item.productListId === id);
+  }
 }

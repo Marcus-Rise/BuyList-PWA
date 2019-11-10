@@ -1,9 +1,9 @@
 import { IStorageService } from "@/services/IStorageService";
-import { injectable } from "tsyringe";
+import { singleton } from "tsyringe";
 import localForage from "localforage";
 import { DBConfigException } from "@/core/Exception/DBConfigException";
 
-@injectable()
+@singleton()
 export class StorageService implements IStorageService {
   private static readonly dbName: string = "buy-list-app";
 
@@ -22,7 +22,7 @@ export class StorageService implements IStorageService {
   async getAll<T>(table: string): Promise<T[]> {
     StorageService.config(table);
 
-    let array: T[] = [];
+    const array: T[] = [];
 
     await localForage.iterate(item => {
       array.push(item as T);

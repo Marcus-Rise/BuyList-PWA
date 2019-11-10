@@ -52,11 +52,11 @@ export default class ProductArrayView extends Vue {
   created() {
     this.productListService.get(parseInt(this.$route.params.id)).then(item => {
       this.productList = item;
-    });
 
-    this.productService.getAll().then(items => {
-      this.productArray.length = 0;
-      this.productArray.push(...items);
+      this.productService.getByList(this.productList.id).then(items => {
+        this.productArray.length = 0;
+        this.productArray.push(...items);
+      });
     });
   }
 

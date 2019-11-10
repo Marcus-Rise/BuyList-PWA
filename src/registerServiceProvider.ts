@@ -6,9 +6,7 @@ import { BudgetAnalyzerService } from "@/services/implementations/BudgetAnalyzer
 import { StorageService } from "@/services/implementations/StorageService";
 
 container
-  .register("IStorageService", {
-    useClass: StorageService
-  })
+  .registerSingleton("IStorageService", StorageService)
   .register("IProductListService", {
     useClass: ProductListService
   })
