@@ -41,9 +41,21 @@
 
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
+    import { IStorageDumpService } from "@/services/IStorageDumpService";
+    import { container } from "tsyringe";
 
     @Component
     export default class HeaderCmpt extends Vue {
         public showMenu: boolean = false;
+
+        /*private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
+
+        dumpImport(obj: object): void {
+            this.storageDumpService.dumpImport(obj)
+        }
+
+        dumpExport(): void {
+            this.storageDumpService.dumpExport();
+        }*/
     }
 </script>

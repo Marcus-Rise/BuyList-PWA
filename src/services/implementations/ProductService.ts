@@ -50,4 +50,8 @@ export class ProductService implements IProductService {
 
     return array.filter(item => item.productListId === id);
   }
+
+  async clear(): Promise<void> {
+      return this.storageService.clear(this.table);
+  }
 }
