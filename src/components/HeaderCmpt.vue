@@ -35,7 +35,7 @@
         )
             v-list-item
                 v-list-item-avatar
-                    v-img(src="https://randomuser.me/api/portraits/men/78.jpg")
+                    v-img(src="/img/profile-min.png")
                 v-list-item-content BuyList
 
             v-divider
