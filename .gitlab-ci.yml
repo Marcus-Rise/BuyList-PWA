@@ -7,6 +7,7 @@ pages:
     - npm run build --modern
     - rm -rf public
     - mv dist public
+    - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
   artifacts:
     paths:
       - public # mandatory, other folder won't work
