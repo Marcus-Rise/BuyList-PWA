@@ -2,15 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93f16482-6dc4-4869-9462-75d4069a1853" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/core/IDTO.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/ProductDTO.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Product.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ProductArrayView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ProductArrayView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -73,8 +86,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="npm.serve" />
       <item itemvalue="Jest.BudgetAnalyzerService" />
+      <item itemvalue="npm.serve" />
     </list>
     <recent_temporary>
       <list>

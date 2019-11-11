@@ -10,12 +10,14 @@ module.exports = {
         "@vue/typescript",
         "prettier"
     ],
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        project: "./tsconfig.json",
+        extraFileExtensions: [".vue"]
+    },
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
-    },
-    parserOptions: {
-        parser: "@typescript-eslint/parser"
     },
     plugins: ["prettier"],
     overrides: [
@@ -26,6 +28,9 @@ module.exports = {
             ],
             env: {
                 jest: true
+            },
+            rules: {
+                "no-dupe-class-members": "off"
             }
         }
     ]

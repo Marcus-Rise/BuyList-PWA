@@ -1,13 +1,44 @@
+/* eslint-disable */
+import { IProductDTOJson } from "@/models/ProductDTO";
+
 export class Product {
+  public title: string;
+  public priority: number;
+  public price: number;
+  public id: number;
+  public productListId: number;
+
+  constructor(dto?: IProductDTOJson);
   constructor(
-    public title: string = "",
-    public priority: number = 0,
-    public price: number = 0,
-    public id: number = 0,
-    public productListId: number = 0
-  ) {}
+    title?: string,
+    priority?: number,
+    price?: number,
+    id?: number,
+    productListId?: number
+  );
+  constructor(
+    titleOrDTO: string | IProductDTOJson = "",
+    priority: number = 0,
+    price: number = 0,
+    id: number = 0,
+    productListId: number = 0
+  ) {
+    if (typeof titleOrDTO !== "string") {
+      this.title = titleOrDTO.title;
+      this.priority = titleOrDTO.priority;
+      this.price = titleOrDTO.price;
+      this.id = titleOrDTO.id;
+      this.productListId = titleOrDTO.productListId;
+    } else {
+      this.title = titleOrDTO;
+      this.priority = priority;
+      this.price = price;
+      this.id = id;
+      this.productListId = productListId;
+    }
+  }
 
   toString(): string {
-    return `${this.title} ${this.priority} ${this.price}`;
+    return `id: ${this.id}; title: ${this.title}; priority: ${this.priority}; price: ${this.price}`;
   }
 }

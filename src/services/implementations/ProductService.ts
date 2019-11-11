@@ -2,6 +2,7 @@ import { IProductService } from "@/services/IProductService";
 import { Product } from "@/models/Product";
 import { inject, injectable } from "tsyringe";
 import { IStorageService } from "@/services/IStorageService";
+import {ProductDTO} from "@/models/ProductDTO";
 
 @injectable()
 export class ProductService implements IProductService {
@@ -13,11 +14,15 @@ export class ProductService implements IProductService {
   ) {}
 
   async get(id: number): Promise<Product> {
-    return this.storageService.get<Product>(this.table, id.toString());
+    return new Product(
+      await this.storageService.get<Product>(this.table, id.toString())
+    );
   }
 
   async getAll(): Promise<Product[]> {
-    return this.storageService.getAll<Product>(this.table);
+    return (await this.storageService.getAll<Product>(this.table)).map(
+      item => new Product(item)
+    );
   }
 
   async save(item: Product): Promise<Product> {
@@ -29,15 +34,19 @@ export class ProductService implements IProductService {
 
     item.id = lastId + 1;
 
-    return this.storageService.set<Product>(
-      this.table,
-      item.id.toString(),
-      item
+    return new Product(
+      await this.storageService.set<Product>(
+        this.table,
+        item.id.toString(),
+        new ProductDTO(item).serialize()
+      )
     );
   }
 
   async getByList(id: number): Promise<Product[]> {
-    const array: Product[] = await this.getAll();
+    const array: Product[] = (await this.getAll()).map(
+      item => new Product(item)
+    );
 
     return array.filter(item => item.productListId === id);
   }
