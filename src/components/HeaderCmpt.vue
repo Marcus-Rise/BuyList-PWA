@@ -44,6 +44,6 @@
 
     @Component
     export default class HeaderCmpt extends Vue {
-        public showMenu: boolean = true;
+        public showMenu: boolean = false;
     }
 </script>
