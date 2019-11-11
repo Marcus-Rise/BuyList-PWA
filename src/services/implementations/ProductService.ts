@@ -21,9 +21,13 @@ export class ProductService implements IProductService {
   }
 
   async save(item: Product): Promise<Product> {
-    const length: number = await this.storageService.length(this.table);
+    const lastId: number = (
+      await this.storageService.getAll<Product>(this.table)
+    ).reduce((latestId: number, current: Product) => {
+      return current.id > latestId ? current.id : latestId;
+    }, 0);
 
-    item.id = length + 1;
+    item.id = lastId + 1;
 
     return this.storageService.set<Product>(
       this.table,
