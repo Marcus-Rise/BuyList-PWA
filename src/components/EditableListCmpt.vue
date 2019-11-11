@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-list
+    v-list(style="position: relative")
         v-list-item(v-for="item of items" :key="item.key" :to="item.href")
             v-list-item-content
                 v-list-item-title {{item.title}}
@@ -8,10 +8,17 @@
                 v-btn(icon @click="editItem(item.key)")
                     v-icon(small) fa-pen
 
-        v-row(justify="end")
-            v-col(sm="auto")
-                v-btn( @click="addItem()" class="mx-2" fab dark color="indigo")
-                    v-icon(dark) fa-plus
+        v-btn(
+            @click="addItem()"
+            color="pink"
+            dark
+            small
+            absolute
+            top
+            right
+            fab
+        )
+            v-icon(dark) fa-plus
 
 </template>
 

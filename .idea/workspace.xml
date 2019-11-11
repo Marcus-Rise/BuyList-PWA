@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93f16482-6dc4-4869-9462-75d4069a1853" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/ProductListDTO.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/ProductList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ProductList.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ProductListArrayView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ProductListArrayView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditableListCmpt.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditableListCmpt.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +50,7 @@
     <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v12.13.0/bin/node" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="GitLabConfigurableProvider" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
@@ -68,7 +66,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jest.BudgetAnalyzerService">
+  <component name="RunManager" selected="npm.serve">
     <configuration name="BudgetAnalyzerService" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -103,6 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1573473308376</updated>
       <workItem from="1573473309658" duration="1215000" />
+      <workItem from="1573484670915" duration="555000" />
     </task>
     <task id="LOCAL-00001" summary="chore(idea): dont ignore idea folder">
       <created>1573473485496</created>
@@ -129,7 +128,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
