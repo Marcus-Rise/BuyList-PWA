@@ -17,7 +17,12 @@ export class StorageDumpService implements IStorageDumpService {
     private readonly productListService: IProductListService
   ) {}
 
-  async dumpExport(): Promise<IStorageDumpServiceObject> {
+  async clear(): Promise<void> {
+      await this.productListService.clear();
+      await this.productService.clear();
+  }
+
+  async export(): Promise<IStorageDumpServiceObject> {
     const productArray: IProductDTOJson[] = (
       await this.productService.getAll()
     ).map(item => new ProductDTO(item).serialize());
@@ -31,7 +36,7 @@ export class StorageDumpService implements IStorageDumpService {
     };
   }
 
-  async dumpImport(
+  async import(
     obj: IStorageDumpServiceObject,
     append: boolean = true
   ): Promise<void> {

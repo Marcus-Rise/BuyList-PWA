@@ -22,6 +22,10 @@
                         v-list-item-title(
                             @click="storageDumpImport()"
                         ) Импорт данных
+                    v-list-item(link)
+                        v-list-item-title(
+                            @click="storageDumpClear()"
+                        ) Очистить данные
 
         v-navigation-drawer(
             v-model="showMenu"
@@ -50,6 +54,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { container } from "tsyringe";
+import { IStorageDumpService } from "@/services/IStorageDumpService";
 
 @Component({
   components: {
@@ -69,6 +75,10 @@ export default class HeaderCmpt extends Vue {
     | null = null;
   public showOverlay: boolean = false;
 
+  private readonly storageDumpService: IStorageDumpService = container.resolve(
+    "IStorageDumpService"
+  );
+
   storageDumpImport(obj: object): void {
     this.storageDumpCmpt = "StorageImportDumpCmpt";
     this.showOverlay = true;
@@ -77,6 +87,10 @@ export default class HeaderCmpt extends Vue {
   storageDumpExport(): void {
     this.storageDumpCmpt = "StorageExportDumpCmpt";
     this.showOverlay = true;
+  }
+
+  storageDumpClear(): void {
+    this.storageDumpService.clear();
   }
 }
 </script>

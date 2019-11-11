@@ -32,7 +32,7 @@
         private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
 
         dump(): void {
-            this.storageDumpService.dumpImport(JSON.parse(this.dumpObjStringify), this.appendMode);
+            this.storageDumpService.import(JSON.parse(this.dumpObjStringify), this.appendMode);
         }
     }
 </script>

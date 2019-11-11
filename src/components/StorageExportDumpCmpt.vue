@@ -23,7 +23,7 @@
         private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
 
         created(): void {
-            this.storageDumpService.dumpExport()
+            this.storageDumpService.export()
                 .then((obj) => {
                     this.dumpObj = obj;
                 });
