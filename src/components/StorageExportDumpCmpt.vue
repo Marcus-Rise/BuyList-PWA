@@ -12,21 +12,22 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
-    import { IStorageDumpService } from "@/services/IStorageDumpService";
-    import { container } from "tsyringe";
+import { Component, Vue } from "vue-property-decorator";
+import { IStorageDumpService } from "@/services/IStorageDumpService";
+import { container } from "tsyringe";
 
-    @Component
-    export default class StorageExportDumpCmpt extends Vue {
-        public dumpObj: object | null = null;
+@Component
+export default class StorageExportDumpCmpt extends Vue {
+  public dumpObj: object | null = null;
 
-        private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
+  private readonly storageDumpService: IStorageDumpService = container.resolve(
+    "IStorageDumpService"
+  );
 
-        created(): void {
-            this.storageDumpService.export()
-                .then((obj) => {
-                    this.dumpObj = obj;
-                });
-        }
-    }
+  created(): void {
+    this.storageDumpService.export().then(obj => {
+      this.dumpObj = obj;
+    });
+  }
+}
 </script>

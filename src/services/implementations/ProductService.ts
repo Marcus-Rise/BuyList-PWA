@@ -52,6 +52,6 @@ export class ProductService implements IProductService {
   }
 
   async clear(): Promise<void> {
-      return this.storageService.clear(this.table);
+    return this.storageService.clear(this.table);
   }
 }

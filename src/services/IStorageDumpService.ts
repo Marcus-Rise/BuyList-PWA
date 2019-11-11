@@ -1,9 +1,9 @@
 import { IStorageDumpServiceObject } from "@/models/IStorageDumpServiceObject";
 
 export interface IStorageDumpService {
-    import(obj: IStorageDumpServiceObject, append?: boolean): Promise<void>;
+  import(obj: IStorageDumpServiceObject, append?: boolean): Promise<void>;
 
-    export(): Promise<IStorageDumpServiceObject>;
+  export(): Promise<IStorageDumpServiceObject>;
 
-    clear(): Promise<void>;
+  clear(): Promise<void>;
 }

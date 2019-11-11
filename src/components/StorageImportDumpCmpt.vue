@@ -20,19 +20,24 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
-    import { container } from "tsyringe";
-    import { IStorageDumpService } from "@/services/IStorageDumpService";
+import { Component, Vue } from "vue-property-decorator";
+import { container } from "tsyringe";
+import { IStorageDumpService } from "@/services/IStorageDumpService";
 
-    @Component
-    export default class StorageImportDumpCmpt extends Vue {
-        public appendMode: boolean = true;
-        public dumpObjStringify: string = "";
+@Component
+export default class StorageImportDumpCmpt extends Vue {
+  public appendMode: boolean = true;
+  public dumpObjStringify: string = "";
 
-        private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
+  private readonly storageDumpService: IStorageDumpService = container.resolve(
+    "IStorageDumpService"
+  );
 
-        dump(): void {
-            this.storageDumpService.import(JSON.parse(this.dumpObjStringify), this.appendMode);
-        }
-    }
+  dump(): void {
+    this.storageDumpService.import(
+      JSON.parse(this.dumpObjStringify),
+      this.appendMode
+    );
+  }
+}
 </script>
