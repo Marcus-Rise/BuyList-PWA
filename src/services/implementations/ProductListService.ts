@@ -29,11 +29,11 @@ export class ProductListService implements IProductListService {
 
         item.id = lastId + 1;
 
-        return this.storageService.set<IProductListDTOJson>(
+        return new ProductList((await this.storageService.set<IProductListDTOJson>(
             this.table,
             item.id.toString(),
             new ProductListDTO(item).serialize()
-        );
+        )));
     }
 
     async get(id: number): Promise<ProductList> {

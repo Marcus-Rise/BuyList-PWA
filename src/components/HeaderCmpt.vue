@@ -14,10 +14,14 @@
                         v-icon fa-ellipsis-v
 
                 v-list
-                    v-list-item
-                        v-list-item-title Экспорт данных
-                    v-list-item
-                        v-list-item-title Импорт данных
+                    v-list-item(link)
+                        v-list-item-title(
+                            @click="storageDumpExport()"
+                        ) Экспорт данных
+                    v-list-item(link)
+                        v-list-item-title(
+                            @click="storageDumpImport()"
+                        ) Импорт данных
 
         v-navigation-drawer(
             v-model="showMenu"
@@ -37,25 +41,42 @@
                     v-list-item-icon
                         v-icon fa-list-ul
                     v-list-item-content Списки продуктов
+        v-overlay(:value="showOverlay")
+            component(v-if="storageDumpCmpt" :is="storageDumpCmpt")
+
+            v-row(justify="center" align="center")
+                v-btn(@click="showOverlay = false" color="primary") Закрыть
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
-    import { IStorageDumpService } from "@/services/IStorageDumpService";
-    import { container } from "tsyringe";
+import { Component, Vue } from "vue-property-decorator";
 
-    @Component
-    export default class HeaderCmpt extends Vue {
-        public showMenu: boolean = false;
+@Component({
+  components: {
+    StorageImportDumpCmpt: () =>
+      import(
+        /*StorageImportDumpCmpt*/ "@/components/StorageImportDumpCmpt.vue"
+      ),
+    StorageExportDumpCmpt: () =>
+      import(/*StorageExportDumpCmpt*/ "@/components/StorageExportDumpCmpt.vue")
+  }
+})
+export default class HeaderCmpt extends Vue {
+  public showMenu: boolean = false;
+  public storageDumpCmpt:
+    | "StorageImportDumpCmpt"
+    | "StorageExportDumpCmpt"
+    | null = null;
+  public showOverlay: boolean = false;
 
-        /*private readonly storageDumpService: IStorageDumpService = container.resolve("IStorageDumpService");
+  storageDumpImport(obj: object): void {
+    this.storageDumpCmpt = "StorageImportDumpCmpt";
+    this.showOverlay = true;
+  }
 
-        dumpImport(obj: object): void {
-            this.storageDumpService.dumpImport(obj)
-        }
-
-        dumpExport(): void {
-            this.storageDumpService.dumpExport();
-        }*/
-    }
+  storageDumpExport(): void {
+    this.storageDumpCmpt = "StorageExportDumpCmpt";
+    this.showOverlay = true;
+  }
+}
 </script>

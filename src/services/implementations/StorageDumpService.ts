@@ -41,11 +41,18 @@ export class StorageDumpService implements IStorageDumpService {
     }
 
     for (const item of obj.productListArray) {
-      await this.productListService.save(new ProductList(item));
-    }
+      const itemProducts: Product[] = obj.productArray.filter(
+        product => product.productListId === item.id
+      );
 
-    for (const item of obj.productArray) {
-      await this.productService.save(new Product(item));
+      const list: ProductList = await this.productListService.save(
+        new ProductList(item)
+      );
+
+      for (const item of itemProducts) {
+        item.productListId = list.id;
+        await this.productService.save(new Product(item));
+      }
     }
   }
 }
