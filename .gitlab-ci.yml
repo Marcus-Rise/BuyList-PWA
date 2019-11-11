@@ -4,7 +4,7 @@ pages:
   stage: deploy
   script:
     - npm install
-    - npm run build --modern
+    - npm run build
     - rm -rf public
     - mv dist public
     - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
