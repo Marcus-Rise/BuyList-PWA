@@ -10,9 +10,9 @@ export class ProductDTO implements IDTO {
 }
 
 export interface IProductDTOJson {
-    id: number;
-    title: string;
-    priority: number;
-    price: number;
-    productListId: number;
+  id: number;
+  title: string;
+  priority: number;
+  price: number;
+  productListId: number;
 }

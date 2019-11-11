@@ -8,12 +8,11 @@
 </template>
 
 <script>
-    import { Vue, Component } from "vue-property-decorator";
-    import HeaderCmpt from "@/components/HeaderCmpt";
+import { Vue, Component } from "vue-property-decorator";
+import HeaderCmpt from "@/components/HeaderCmpt";
 
-    @Component({
-        components: { HeaderCmpt }
-    })
-    export default class App extends Vue {
-    }
+@Component({
+  components: { HeaderCmpt }
+})
+export default class App extends Vue {}
 </script>

@@ -18,8 +18,8 @@ export class StorageDumpService implements IStorageDumpService {
   ) {}
 
   async clear(): Promise<void> {
-      await this.productListService.clear();
-      await this.productService.clear();
+    await this.productListService.clear();
+    await this.productService.clear();
   }
 
   async export(): Promise<IStorageDumpServiceObject> {
