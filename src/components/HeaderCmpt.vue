@@ -1,5 +1,5 @@
 <template lang="pug">
-    header
+    div
         v-app-bar
             v-app-bar-nav-icon(@click="showMenu = true")
             v-toolbar-title BuyList

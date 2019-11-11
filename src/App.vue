@@ -1,9 +1,10 @@
 <template lang="pug">
     v-app
         header-cmpt
-        v-container
-            transition
-                router-view
+        v-content
+            v-container
+                transition
+                    router-view
 </template>
 
 <script>
