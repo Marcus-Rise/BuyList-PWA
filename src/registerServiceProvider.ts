@@ -4,11 +4,15 @@ import { ProductListService } from "@/services/implementations/ProductListServic
 import { ProductService } from "@/services/implementations/ProductService";
 import { BudgetAnalyzerService } from "@/services/implementations/BudgetAnalyzerService";
 import { StorageService } from "@/services/implementations/StorageService";
+import { StorageDumpService } from "@/services/implementations/StorageDumpService";
 
 container
   .registerSingleton("IStorageService", StorageService)
   .register("IProductListService", {
     useClass: ProductListService
+  })
+  .register("IStorageDumpService", {
+    useClass: StorageDumpService
   })
   .register("IProductService", {
     useClass: ProductService

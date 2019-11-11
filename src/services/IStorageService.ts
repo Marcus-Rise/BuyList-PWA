@@ -6,4 +6,6 @@ export interface IStorageService {
   getAll<T>(table: string): Promise<T[]>;
 
   length(table: string): Promise<number>;
+
+  clear(table: string): Promise<void>;
 }

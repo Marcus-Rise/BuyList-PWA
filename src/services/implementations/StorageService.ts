@@ -6,6 +6,10 @@ import localForage from "localforage";
 export class StorageService implements IStorageService {
   private readonly dbName: string = "buy-list-app";
 
+  async clear(table: string): Promise<void> {
+    return this.db(table).clear();
+  }
+
   async get<T>(table: string, key: string): Promise<T> {
     return this.db(table).getItem<T>(key);
   }
