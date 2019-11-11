@@ -18,7 +18,7 @@
             right
             fab
         )
-            v-icon(dark) fa-plus
+            v-icon(dark small) fa-plus
 
 </template>
 
