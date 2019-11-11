@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93f16482-6dc4-4869-9462-75d4069a1853" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/core/IDTO.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/ProductDTO.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/ProductListDTO.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Product.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/ProductList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ProductList.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductListService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/implementations/ProductService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ProductArrayView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ProductArrayView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ProductListArrayView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ProductListArrayView.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573473485496</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat(dto): add product dto">
+      <created>1573476351791</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573476351791</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +137,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore(idea): dont ignore idea folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(idea): dont ignore idea folder" />
+    <MESSAGE value="feat(dto): add product dto" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(dto): add product dto" />
   </component>
 </project>
