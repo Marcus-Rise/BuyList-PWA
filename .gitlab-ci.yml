@@ -1,15 +1,14 @@
-image: node
-
-pages:
+pages: # задание должно быть именованными страницами
+  image: node:latest
   stage: deploy
   script:
-    - npm install
+    - npm ci
     - npm run build
-    - rm -rf public
-    - mv dist public
+    - mv public public-vue # GitLab Pages хук для каталога public
+    - mv dist public # переименование каталога dist (результат команды npm run build)
     - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
   artifacts:
     paths:
-      - public # mandatory, other folder won't work
+      - public # путь к артефакту должен быть /public для GitLab Pages
   only:
-    - master # or dev, the branch you want to publish
+    - master
