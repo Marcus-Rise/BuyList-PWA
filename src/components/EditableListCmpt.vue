@@ -1,16 +1,20 @@
 <template lang="pug">
     v-list(style="position: relative")
-        v-list-item(v-for="item of items" :key="item.key" :to="item.href")
+        v-list-item(v-for="item of items" :key="item.key")
             v-list-item-content
-                v-list-item-title {{item.title}}
-                v-list-item-subtitle {{item.secondary}}
+                router-link(:to="item.href ? item.href : {}" style="text-decoration: none; color: inherit;")
+                    v-list-item-title {{item.title}}
+                    v-list-item-subtitle {{item.secondary}}
             v-list-item-action
                 v-btn(icon @click="editItem(item.key)")
                     v-icon(small) fa-pen
+            v-list-item-action
+                v-btn(icon @click="deleteItem(item.key)")
+                    v-icon(small) fa-trash
 
         v-btn(
             @click="addItem()"
-            color="pink"
+            color="accent"
             dark
             small
             absolute
@@ -36,6 +40,10 @@ export default class EditableListCmpt extends Vue {
 
   editItem(key: string): void {
     this.$emit("edit", key);
+  }
+
+  deleteItem(key: string): void {
+    this.$emit("delete", key);
   }
 }
 </script>
