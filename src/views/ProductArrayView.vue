@@ -6,7 +6,7 @@
                     color="teal"
                     dark
                 )
-                    v-toolbar-title Продукты списка {{ productList.title }}
+                    v-toolbar-title Продукты списка "{{ productList.title }}"
 
                 editable-list-cmpt(
                     :items="productsView"
