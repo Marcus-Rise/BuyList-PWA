@@ -21,9 +21,11 @@ export class ProductService implements IProductService {
   }
 
   async getAll(): Promise<Product[]> {
-    return (await this.storageService.getAll<IProductDTOJson>(this.table)).map(
-      item => new Product(item)
+    const products = await this.storageService.getAll<IProductDTOJson>(
+      this.table
     );
+
+    return products.map(item => new Product(item));
   }
 
   async save(item: Product): Promise<Product> {
@@ -59,9 +61,7 @@ export class ProductService implements IProductService {
   }
 
   async getByList(id: number): Promise<Product[]> {
-    const array: Product[] = (await this.getAll()).map(
-      item => new Product(item)
-    );
+    const array: Product[] = await this.getAll();
 
     return array.filter(item => item.productListId === id);
   }
