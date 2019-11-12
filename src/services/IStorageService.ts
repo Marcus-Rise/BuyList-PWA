@@ -8,4 +8,6 @@ export interface IStorageService {
   length(table: string): Promise<number>;
 
   clear(table: string): Promise<void>;
+
+  delete(table: string, key: string): Promise<void>;
 }

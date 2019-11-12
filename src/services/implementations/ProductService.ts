@@ -3,6 +3,7 @@ import { Product } from "@/models/Product";
 import { inject, injectable } from "tsyringe";
 import { IStorageService } from "@/services/IStorageService";
 import { IProductDTOJson, ProductDTO } from "@/models/ProductDTO";
+import { NotFoundException } from "@/core/Exception/NotFoundException";
 
 @injectable()
 export class ProductService implements IProductService {
@@ -43,6 +44,20 @@ export class ProductService implements IProductService {
     );
   }
 
+  async update(item: Product): Promise<Product> {
+    if (!(await this.get(item.id))) {
+      throw new NotFoundException(item.toString());
+    }
+
+    return new Product(
+      await this.storageService.set<IProductDTOJson>(
+        this.table,
+        item.id.toString(),
+        new ProductDTO(item).serialize()
+      )
+    );
+  }
+
   async getByList(id: number): Promise<Product[]> {
     const array: Product[] = (await this.getAll()).map(
       item => new Product(item)
@@ -53,5 +68,9 @@ export class ProductService implements IProductService {
 
   async clear(): Promise<void> {
     return this.storageService.clear(this.table);
+  }
+
+  async delete(item: Product): Promise<void> {
+    return this.storageService.delete(this.table, item.id.toString());
   }
 }

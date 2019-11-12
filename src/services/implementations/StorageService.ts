@@ -14,6 +14,10 @@ export class StorageService implements IStorageService {
     return this.db(table).getItem<T>(key);
   }
 
+  async delete(table: string, key: string): Promise<void> {
+    return this.db(table).removeItem(key);
+  }
+
   async set<T>(table: string, key: string, value: T): Promise<T> {
     return this.db(table).setItem<T>(key, value);
   }

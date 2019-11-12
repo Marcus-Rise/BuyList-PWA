@@ -12,6 +12,7 @@
                     :items="productsView"
                     @add="addItem"
                     @edit="editItem"
+                    @delete="deleteItem"
                 )
 </template>
 
@@ -24,6 +25,7 @@ import { Product } from "@/models/Product";
 import { IProductService } from "@/services/IProductService";
 import { ProductList } from "@/models/ProductList";
 import { IProductListService } from "@/services/IProductListService";
+import { NotFoundException } from "@/core/Exception/NotFoundException";
 
 @Component({
   components: { EditableListCmpt }
@@ -53,11 +55,17 @@ export default class ProductArrayView extends Vue {
     this.productListService.get(parseInt(this.$route.params.id)).then(item => {
       this.productList = item;
 
+      this.getAll();
+    });
+  }
+
+  getAll(): void {
+    if (this.productList) {
       this.productService.getByList(this.productList.id).then(items => {
         this.productArray.length = 0;
         this.productArray.push(...items);
       });
-    });
+    }
   }
 
   addItem(): void {
@@ -71,6 +79,18 @@ export default class ProductArrayView extends Vue {
 
   editItem(key: string): void {
     this.$router.push({ name: "editProduct", params: { id: key } });
+  }
+
+  deleteItem(key: string): void {
+    this.productService.get(parseInt(key)).then(item => {
+      if (item) {
+        this.productService.delete(item).then(() => {
+          this.getAll();
+        });
+      } else {
+        throw new NotFoundException("product by " + key);
+      }
+    });
   }
 }
 </script>

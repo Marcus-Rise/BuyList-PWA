@@ -3,6 +3,9 @@ import { ProductList } from "@/models/ProductList";
 import { inject, injectable } from "tsyringe";
 import { IStorageService } from "@/services/IStorageService";
 import { IProductListDTOJson, ProductListDTO } from "@/models/ProductListDTO";
+import { NotFoundException } from "@/core/Exception/NotFoundException";
+import { IProductService } from "@/services/IProductService";
+import { Product } from "@/models/Product";
 
 @injectable()
 export class ProductListService implements IProductListService {
@@ -10,7 +13,9 @@ export class ProductListService implements IProductListService {
 
   constructor(
     @inject("IStorageService")
-    private readonly storageService: IStorageService
+    private readonly storageService: IStorageService,
+    @inject("IProductService")
+    private readonly productService: IProductService
   ) {}
 
   async getAll(): Promise<ProductList[]> {
@@ -37,6 +42,20 @@ export class ProductListService implements IProductListService {
     );
   }
 
+  async update(item: ProductList): Promise<ProductList> {
+    if (!(await this.get(item.id))) {
+      throw new NotFoundException(item.toString());
+    }
+
+    return new ProductList(
+      await this.storageService.set<IProductListDTOJson>(
+        this.table,
+        item.id.toString(),
+        new ProductListDTO(item).serialize()
+      )
+    );
+  }
+
   async get(id: number): Promise<ProductList> {
     return new ProductList(
       await this.storageService.get<IProductListDTOJson>(
@@ -48,5 +67,15 @@ export class ProductListService implements IProductListService {
 
   async clear(): Promise<void> {
     return this.storageService.clear(this.table);
+  }
+
+  async delete(item: ProductList): Promise<void> {
+    const products: Product[] = await this.productService.getByList(item.id);
+
+    for (const product of products) {
+      await this.productService.delete(product);
+    }
+
+    return this.storageService.delete(this.table, item.id.toString());
   }
 }
