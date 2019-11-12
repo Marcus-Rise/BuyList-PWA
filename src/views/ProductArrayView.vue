@@ -8,12 +8,15 @@
                 )
                     v-toolbar-title Продукты списка {{ productList.title }}
 
-                editable-list-cmpt(
-                    :items="productsView"
-                    @add="addItem"
-                    @edit="editItem"
-                    @delete="deleteItem"
-                )
+                v-card-text
+                    editable-list-cmpt(
+                        :items="productsView"
+                        @add="addItem"
+                        @edit="editItem"
+                        @delete="deleteItem"
+                    )
+
+                    budget-analyzer-cmpt(:products="productArray")
 </template>
 
 <script lang="ts">
@@ -26,9 +29,10 @@ import { IProductService } from "@/services/IProductService";
 import { ProductList } from "@/models/ProductList";
 import { IProductListService } from "@/services/IProductListService";
 import { NotFoundException } from "@/core/Exception/NotFoundException";
+import BudgetAnalyzerCmpt from "@/components/BudgetAnalyzerCmpt.vue";
 
 @Component({
-  components: { EditableListCmpt }
+  components: { BudgetAnalyzerCmpt, EditableListCmpt }
 })
 export default class ProductArrayView extends Vue {
   get productsView(): IEditableListItem[] {

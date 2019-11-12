@@ -1,0 +1,32 @@
+{
+  "productArray": [
+    {
+      "title": "first",
+      "priority": 0,
+      "price": 250,
+      "id": 1,
+      "productListId": 1
+    },
+    {
+      "title": "second",
+      "priority": 1,
+      "price": 150,
+      "id": 2,
+      "productListId": 1
+    },
+    {
+      "title": "third",
+      "priority": 2,
+      "price": 250,
+      "id": 3,
+      "productListId": 1
+    }
+  ],
+  "productListArray": [
+    {
+      "title": "test",
+      "id": 1
+    }
+  ]
+}
+

@@ -17,6 +17,6 @@ container
   .register("IProductService", {
     useClass: ProductService
   })
-  .register("IBudgetAnalyzerService.ts", {
+  .register("IBudgetAnalyzerService", {
     useClass: BudgetAnalyzerService
   });
