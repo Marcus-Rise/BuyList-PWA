@@ -1,7 +1,7 @@
 <template lang="pug">
-    v-row
-        v-col
-            v-card.mx-auto(v-if="!!productList")
+    v-row(v-if="!!productList")
+        v-col(sm="12")
+            v-card.mx-auto
                 v-toolbar(
                     color="teal"
                     dark
@@ -15,7 +15,15 @@
                         @edit="editItem"
                         @delete="deleteItem"
                     )
+        v-col(sm="12")
+            v-card.mx-auto
+                v-toolbar(
+                    color="teal"
+                    dark
+                )
+                    v-toolbar-title Подобранный список
 
+                v-card-text
                     budget-analyzer-cmpt(:products="productArray")
 </template>
 

@@ -21,6 +21,13 @@
                         )
                             v-btn(color="primary" @click="match") Подобрать
 
+                    v-row(v-if="newList")
+                        v-list
+                            v-list-item(v-for="item of newList" :key="item.key")
+                                v-list-item-content
+                                    v-list-item-title {{item.title}}
+                                    v-list-item-subtitle {{item.toString()}}
+
 </template>
 
 <script lang="ts">
@@ -35,14 +42,19 @@ export default class BudgetAnalyzerCmpt extends Vue {
 
   public limit: number = 0;
 
+  public newList: Product[] = [];
+
   private readonly budgetAnalyzerService: IBudgetAnalyzerService = container.resolve(
     "IBudgetAnalyzerService"
   );
 
   match(): void {
+    this.newList.length = 0;
+
     if (this.limit > 0 && this.products.length > 0) {
-      console.log(
-        this.budgetAnalyzerService.getBestChoice(this.products, this.limit).map(item => item.toString())
+      this.newList = this.budgetAnalyzerService.getBestChoice(
+        this.products,
+        this.limit
       );
     }
   }
