@@ -11,19 +11,6 @@
             v-list-item-action
                 v-btn(icon @click="deleteItem(item.key)")
                     v-icon(small) fa-trash
-
-        v-btn(
-            @click="addItem()"
-            color="accent"
-            dark
-            small
-            absolute
-            top
-            right
-            fab
-        )
-            v-icon(dark small) fa-plus
-
 </template>
 
 <script lang="ts">
@@ -33,10 +20,6 @@ import { IEditableListItem } from "@/components/IEditableListItem";
 @Component
 export default class EditableListCmpt extends Vue {
   @Prop({ required: true }) public readonly items!: IEditableListItem[];
-
-  addItem(): void {
-    this.$emit("add");
-  }
 
   editItem(key: string): void {
     this.$emit("edit", key);

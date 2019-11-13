@@ -8,10 +8,21 @@
                 )
                     v-toolbar-title Продукты списка "{{ productList.title }}"
 
+                    v-spacer
+
+                    v-btn(
+                        fab
+                        color="accent"
+                        small
+                        @click="addItem"
+                    )
+                        v-icon(
+                            small
+                        ) fa-plus
+
                 v-card-text
                     editable-list-cmpt(
                         :items="productsView"
-                        @add="addItem"
                         @edit="editItem"
                         @delete="deleteItem"
                     )
