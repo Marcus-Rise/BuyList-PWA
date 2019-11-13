@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../buy-list-vue-pwa/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/../buy-list-vue-pwa/temp" />
       <excludeFolder url="file://$MODULE_DIR$/../buy-list-vue-pwa/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
