@@ -1,7 +1,7 @@
 {
-  "name": "buy-list-vue-pwa",
+  "name": "buy-list",
   "version": "0.1.0",
-  "homepage": "https://marcus_rise.gitlab.io/buylist-pwa/",
+  "homepage": "https://buy-list-app.marcus-rise.dev ",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --modern",
