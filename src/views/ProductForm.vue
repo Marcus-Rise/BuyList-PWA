@@ -8,7 +8,12 @@
                 )
                     v-toolbar-title {{product.title || "Новый продукт"}}
 
-                v-form
+                v-form(
+                    @submit.prevent="create"
+                    ref="form"
+                    lazy-validation
+                    v-model="valid"
+                )
                     v-container
                         v-row
                             v-col(
@@ -19,6 +24,8 @@
                                     v-model="product.title"
                                     label="Заголовок"
                                     required
+                                    :rules="[v => v.length > 3 || 'Введите заголовок']"
+
                                 )
                             v-col(
                                 cols="12"
@@ -30,6 +37,8 @@
                                     v-model="product.priority"
                                     label="Приоритет"
                                     required
+                                    :rules="[v => parseInt(v) > 0 || 'Приоритет должен быть положительным числом']"
+
                                 )
                             v-col(
                                 cols="12"
@@ -40,6 +49,7 @@
                                     v-model="product.price"
                                     min="1"
                                     label="Цена"
+                                    :rules="[v => parseFloat(v) > 0 || 'Цена должна быть положительным числом']"
                                     required
                                 )
                         v-row
@@ -70,6 +80,8 @@ export default class ProductForm extends Vue {
     return this.product.id !== new Product().id;
   }
 
+  public valid: boolean = true;
+
   public product: Product = new Product();
 
   private readonly productService: IProductService = container.resolve(
@@ -89,14 +101,16 @@ export default class ProductForm extends Vue {
   }
 
   create(): void {
-    if (this.isEdit) {
-      this.productService.update(this.product).then(() => {
-        this.routerBack();
-      });
-    } else {
-      this.productService.save(this.product).then(() => {
-        this.routerBack();
-      });
+    if (this.validate()) {
+      if (this.isEdit) {
+        this.productService.update(this.product).then(() => {
+          this.routerBack();
+        });
+      } else {
+        this.productService.save(this.product).then(() => {
+          this.routerBack();
+        });
+      }
     }
   }
 
@@ -108,6 +122,20 @@ export default class ProductForm extends Vue {
 
   routerBack(): void {
     this.$router.go(-1);
+  }
+
+  validate(): boolean {
+    this.resetValidation();
+
+    return this.$refs.form.validate();
+  }
+
+  reset(): void {
+    this.$refs.form.reset();
+  }
+
+  resetValidation(): void {
+    this.$refs.form.resetValidation();
   }
 }
 </script>
