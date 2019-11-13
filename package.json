@@ -1,6 +1,7 @@
 {
   "name": "buy-list",
   "version": "0.1.0",
+  "license": "ISC",
   "homepage": "https://marcus_rise.gitlab.io/buylist-pwa",
   "scripts": {
     "serve": "vue-cli-service serve",
