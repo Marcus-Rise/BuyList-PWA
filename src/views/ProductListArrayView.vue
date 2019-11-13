@@ -8,9 +8,20 @@
                 )
                     v-toolbar-title Списки
 
+                    v-spacer
+
+                    v-btn(
+                        fab
+                        color="accent"
+                        small
+                        @click="addItem"
+                    )
+                        v-icon(
+                            small
+                        ) fa-plus
+
                 editable-list-cmpt(
                     :items="productListView"
-                    @add="addItem"
                     @edit="editItem"
                     @delete="deleteItem"
                 )
