@@ -8,7 +8,12 @@
                 )
                     v-toolbar-title {{productList.title || "Новый список"}}
 
-                v-form
+                v-form(
+                    @submit.prevent="create"
+                    ref="form"
+                    lazy-validation
+                    v-model="valid"
+                )
                     v-container
                         v-row
                             v-col(
@@ -17,6 +22,7 @@
                             )
                                 v-text-field(
                                     v-model="productList.title"
+                                    :rules="[v => v.length > 3 || 'Введите заголовок']"
                                     label="Заголовок"
                                     required
                                 )
@@ -48,6 +54,8 @@ export default class ProductListForm extends Vue {
     return this.productList.id !== new ProductList().id;
   }
 
+  public valid: boolean = true;
+
   public productList: ProductList = new ProductList();
 
   private readonly productListService: IProductListService = container.resolve(
@@ -65,14 +73,16 @@ export default class ProductListForm extends Vue {
   }
 
   create(): void {
-    if (this.isEdit) {
-      this.productListService.update(this.productList).then(() => {
-        this.routerBack();
-      });
-    } else {
-      this.productListService.save(this.productList).then(() => {
-        this.routerBack();
-      });
+    if (this.validate()) {
+      if (this.isEdit) {
+        this.productListService.update(this.productList).then(() => {
+          this.routerBack();
+        });
+      } else {
+        this.productListService.save(this.productList).then(() => {
+          this.routerBack();
+        });
+      }
     }
   }
 
@@ -82,6 +92,20 @@ export default class ProductListForm extends Vue {
 
   routerBack(): void {
     this.$router.go(-1);
+  }
+
+  validate(): boolean {
+    this.resetValidation();
+
+    return this.$refs.form.validate();
+  }
+
+  reset(): void {
+    this.$refs.form.reset();
+  }
+
+  resetValidation(): void {
+    this.$refs.form.resetValidation();
   }
 }
 </script>
