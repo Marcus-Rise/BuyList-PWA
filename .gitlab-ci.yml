@@ -6,6 +6,7 @@ pages: # задание должно быть именованными стра�
     - yarn build
     - mv public public-vue # GitLab Pages хук для каталога public
     - mv dist public # переименование каталога dist (результат команды npm run build)
+    - cp public/index.html public/404.html
     - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
   artifacts:
     paths:
