@@ -48,6 +48,14 @@ import { ProductList } from "@/models/ProductList";
 import { IProductListService } from "@/services/IProductListService";
 import { container } from "tsyringe";
 
+interface IRefs {
+  form: {
+    reset(): void;
+    resetValidation(): void;
+    validate(): boolean;
+  };
+}
+
 @Component
 export default class ProductListForm extends Vue {
   get isEdit(): boolean {
@@ -97,15 +105,15 @@ export default class ProductListForm extends Vue {
   validate(): boolean {
     this.resetValidation();
 
-    return this.$refs.form.validate();
+    return ((this.$refs as unknown) as IRefs).form.validate();
   }
 
   reset(): void {
-    this.$refs.form.reset();
+    ((this.$refs as unknown) as IRefs).form.reset();
   }
 
   resetValidation(): void {
-    this.$refs.form.resetValidation();
+    ((this.$refs as unknown) as IRefs).form.resetValidation();
   }
 }
 </script>

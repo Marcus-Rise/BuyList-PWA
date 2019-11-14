@@ -74,6 +74,14 @@ import { container } from "tsyringe";
 import { Product } from "@/models/Product";
 import { IProductService } from "@/services/IProductService";
 
+interface IRefs {
+  form: {
+    reset(): void;
+    resetValidation(): void;
+    validate(): boolean;
+  };
+}
+
 @Component
 export default class ProductForm extends Vue {
   get isEdit(): boolean {
@@ -127,15 +135,15 @@ export default class ProductForm extends Vue {
   validate(): boolean {
     this.resetValidation();
 
-    return this.$refs.form.validate();
+    return ((this.$refs as unknown) as IRefs).form.validate();
   }
 
   reset(): void {
-    this.$refs.form.reset();
+    ((this.$refs as unknown) as IRefs).form.reset();
   }
 
   resetValidation(): void {
-    this.$refs.form.resetValidation();
+    ((this.$refs as unknown) as IRefs).form.resetValidation();
   }
 }
 </script>
