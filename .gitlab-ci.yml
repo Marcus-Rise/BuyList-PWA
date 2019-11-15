@@ -5,22 +5,20 @@ stages:
   - build
   - deploy
 
-# Cache modules in between jobs
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-
-before_script:
-  - yarn install
-
 test:
   stage: test
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
   script:
+    - yarn install
     - yarn test:unit
 
 build:
   stage: build
+  dependencies:
+    - test
   script:
     - yarn build
   artifacts:
@@ -29,6 +27,8 @@ build:
 
 pages: # задание должно быть именованными страницами
   stage: deploy
+  dependencies:
+    - build
   script:
     - mv public public-vue # GitLab Pages хук для каталога public
     - mv dist public # переименование каталога dist (результат команды npm run build)
