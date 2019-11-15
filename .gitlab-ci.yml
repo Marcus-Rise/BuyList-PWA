@@ -7,17 +7,15 @@ test:
   image: node:latest
   stage: test
   script:
+    - yarn install
     - yarn test:unit
 
 build:
-  image: node:latest
   stage: build
   script:
-    - yarn install
     - yarn build
 
 pages: # задание должно быть именованными страницами
-  image: node:latest
   stage: deploy
   script:
     - mv public public-vue # GitLab Pages хук для каталога public
