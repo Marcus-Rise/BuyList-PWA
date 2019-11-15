@@ -8,7 +8,7 @@ module.exports = {
   pwa: {
     name: "BuyList",
     manifestOptions: {
-      start_url: "./index.html"
+      start_url: "/index.html"
     }
   },
   configureWebpack: {
