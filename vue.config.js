@@ -1,9 +1,12 @@
 module.exports = {
-    transpileDependencies: ["vuetify"],
-    pwa: {
-        name: "BuyList",
-        manifestOptions: {
-            start_url: "index.html"
-        }
+  transpileDependencies: ["vuetify"],
+  css: {
+    extract: { ignoreOrder: true }
+  },
+  pwa: {
+    name: "BuyList",
+    manifestOptions: {
+      start_url: "/"
     }
+  }
 };
