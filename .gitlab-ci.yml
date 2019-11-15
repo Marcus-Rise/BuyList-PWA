@@ -1,12 +1,11 @@
 image: node:latest
 
 stages:
-  - test
   - build
   - deploy
 
-test:
-  stage: test
+build:
+  stage: build
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -14,12 +13,6 @@ test:
   script:
     - yarn install
     - yarn test:unit
-
-build:
-  stage: build
-  dependencies:
-    - test
-  script:
     - yarn build
   artifacts:
     paths:
