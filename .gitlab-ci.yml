@@ -23,6 +23,9 @@ build:
   stage: build
   script:
     - yarn build
+  artifacts:
+    paths:
+      - dist
 
 pages: # задание должно быть именованными страницами
   stage: deploy
