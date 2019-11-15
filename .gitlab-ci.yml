@@ -1,9 +1,25 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  image: node:latest
+  stage: test
+  script:
+    - yarn test:unit
+
+build:
+  image: node:latest
+  stage: build
+  script:
+    - yarn install
+    - yarn build
+
 pages: # задание должно быть именованными страницами
   image: node:latest
   stage: deploy
   script:
-    - yarn install
-    - yarn build
     - mv public public-vue # GitLab Pages хук для каталога public
     - mv dist public # переименование каталога dist (результат команды npm run build)
     - cp public/index.html public/404.html
