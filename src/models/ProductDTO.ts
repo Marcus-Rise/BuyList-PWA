@@ -1,8 +1,17 @@
-import { IDTO } from "@/core/IDTO";
 import { Product } from "@/models/Product";
+import { AbstractDTO } from "@/core/AbstractDTO";
 
-export class ProductDTO implements IDTO {
-  constructor(private readonly model: Product) {}
+export class ProductDTO extends AbstractDTO {
+  constructor(protected readonly model: Product) {
+    super(model);
+
+    this.rules = {
+      title: () => !!this.model.title || ["Заполните заголовок"],
+      priority: () =>
+        this.model.priority > 0 || ["Приоритет должен быть больше нуля"],
+      price: () => this.model.price > 0 || ["Цена должна быть больше нуля"]
+    };
+  }
 
   serialize(): IProductDTOJson {
     return {

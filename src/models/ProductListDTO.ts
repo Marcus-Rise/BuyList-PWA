@@ -1,8 +1,14 @@
-import { IDTO } from "@/core/IDTO";
 import { ProductList } from "@/models/ProductList";
+import { AbstractDTO } from "@/core/AbstractDTO";
 
-export class ProductListDTO implements IDTO {
-  constructor(private readonly model: ProductList) {}
+export class ProductListDTO extends AbstractDTO {
+  constructor(protected readonly model: ProductList) {
+    super(model);
+
+    this.rules = {
+      title: () => !!this.model.title || ["Заполните заголовок"]
+    };
+  }
 
   serialize(): IProductListDTOJson {
     return {
