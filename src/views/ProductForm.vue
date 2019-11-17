@@ -10,9 +10,6 @@
 
                 v-form(
                     @submit.prevent="create"
-                    ref="form"
-                    lazy-validation
-                    v-model="valid"
                 )
                     v-container
                         v-row
@@ -23,9 +20,8 @@
                                 v-text-field(
                                     v-model="product.title"
                                     label="Заголовок"
-                                    required
-                                    :rules="[v => v.length > 3 || 'Введите заголовок']"
-
+                                    :error-messages="product.errors.title"
+                                    @input="product.errors.title = []"
                                 )
                             v-col(
                                 cols="12"
@@ -36,9 +32,8 @@
                                     min="0"
                                     v-model="product.priority"
                                     label="Приоритет"
-                                    required
-                                    :rules="[v => parseInt(v) > 0 || 'Приоритет должен быть положительным числом']"
-
+                                    :error-messages="product.errors.priority"
+                                    @input="product.errors.priority = []"
                                 )
                             v-col(
                                 cols="12"
@@ -49,8 +44,8 @@
                                     v-model="product.price"
                                     min="1"
                                     label="Цена"
-                                    :rules="[v => parseFloat(v) > 0 || 'Цена должна быть положительным числом']"
-                                    required
+                                    :error-messages="product.errors.price"
+                                    @input="product.errors.price = []"
                                 )
                         v-row
                             v-col(
@@ -73,22 +68,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { container } from "tsyringe";
 import { Product } from "@/models/Product";
 import { IProductService } from "@/services/IProductService";
-
-interface IRefs {
-  form: {
-    reset(): void;
-    resetValidation(): void;
-    validate(): boolean;
-  };
-}
+import { ProductDTO } from "@/models/ProductDTO";
 
 @Component
 export default class ProductForm extends Vue {
   get isEdit(): boolean {
     return this.product.id !== new Product().id;
   }
-
-  public valid: boolean = true;
 
   public product: Product = new Product();
 
@@ -133,17 +119,9 @@ export default class ProductForm extends Vue {
   }
 
   validate(): boolean {
-    this.resetValidation();
+    this.product.clear();
 
-    return ((this.$refs as unknown) as IRefs).form.validate();
-  }
-
-  reset(): void {
-    ((this.$refs as unknown) as IRefs).form.reset();
-  }
-
-  resetValidation(): void {
-    ((this.$refs as unknown) as IRefs).form.resetValidation();
+    return new ProductDTO(this.product).validate();
   }
 }
 </script>

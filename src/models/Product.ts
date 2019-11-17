@@ -1,7 +1,9 @@
 /* eslint-disable */
 import { IProductDTOJson } from "@/models/ProductDTO";
+import { AbstractValidatable, ValidationErrorsObject } from "@/core/AbstractValidatable";
 
-export class Product {
+export class Product extends AbstractValidatable {
+  public errors: ValidationErrorsObject;
   public title: string;
   public priority: number;
   public price: number;
@@ -23,6 +25,8 @@ export class Product {
     id: number = 0,
     productListId: number = 0
   ) {
+    super();
+
     if (typeof titleOrDTO !== "string") {
       this.title = titleOrDTO.title;
       this.priority = parseInt(titleOrDTO.priority);
@@ -36,6 +40,12 @@ export class Product {
       this.id = id;
       this.productListId = productListId;
     }
+
+    this.errors = {
+      title: [],
+      priority: [],
+      price: [],
+    };
   }
 
   toString(): string {

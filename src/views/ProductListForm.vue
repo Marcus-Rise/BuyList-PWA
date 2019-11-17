@@ -10,9 +10,6 @@
 
                 v-form(
                     @submit.prevent="create"
-                    ref="form"
-                    lazy-validation
-                    v-model="valid"
                 )
                     v-container
                         v-row
@@ -22,9 +19,9 @@
                             )
                                 v-text-field(
                                     v-model="productList.title"
-                                    :rules="[v => v.length > 3 || 'Введите заголовок']"
                                     label="Заголовок"
-                                    required
+                                    :error-messages="productList.errors.title"
+                                    @input="productList.errors.title = []"
                                 )
                         v-row
                             v-col(
@@ -47,22 +44,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { ProductList } from "@/models/ProductList";
 import { IProductListService } from "@/services/IProductListService";
 import { container } from "tsyringe";
-
-interface IRefs {
-  form: {
-    reset(): void;
-    resetValidation(): void;
-    validate(): boolean;
-  };
-}
+import { ProductListDTO } from "@/models/ProductListDTO";
 
 @Component
 export default class ProductListForm extends Vue {
   get isEdit(): boolean {
     return this.productList.id !== new ProductList().id;
   }
-
-  public valid: boolean = true;
 
   public productList: ProductList = new ProductList();
 
@@ -103,17 +91,9 @@ export default class ProductListForm extends Vue {
   }
 
   validate(): boolean {
-    this.resetValidation();
+    this.productList.clear();
 
-    return ((this.$refs as unknown) as IRefs).form.validate();
-  }
-
-  reset(): void {
-    ((this.$refs as unknown) as IRefs).form.reset();
-  }
-
-  resetValidation(): void {
-    ((this.$refs as unknown) as IRefs).form.resetValidation();
+    return new ProductListDTO(this.productList).validate();
   }
 }
 </script>
