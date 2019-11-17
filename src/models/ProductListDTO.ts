@@ -5,11 +5,14 @@ export class ProductListDTO implements IDTO {
   constructor(private readonly model: ProductList) {}
 
   serialize(): IProductListDTOJson {
-    return this.model;
+    return {
+      id: this.model.id.toString(),
+      title: this.model.title
+    };
   }
 }
 
 export interface IProductListDTOJson {
   readonly title: string;
-  readonly id: number;
+  readonly id: string;
 }

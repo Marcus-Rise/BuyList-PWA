@@ -27,9 +27,11 @@ export class ProductListService implements IProductListService {
   async save(item: ProductList): Promise<ProductList> {
     const lastId: number = (
       await this.storageService.getAll<IProductListDTOJson>(this.table)
-    ).reduce((latestId: number, current: ProductList) => {
-      return current.id > latestId ? current.id : latestId;
-    }, 0);
+    )
+      .map(productListDTO => new ProductList(productListDTO))
+      .reduce((latestId: number, current: ProductList) => {
+        return current.id > latestId ? current.id : latestId;
+      }, 0);
 
     item.id = lastId + 1;
 
