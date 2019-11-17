@@ -4,6 +4,7 @@
     )
         v-container
             v-layout
+                div: a(:href="supportEmail" style="color: inherit") Support email
                 v-spacer
                 div
                     | &copy; {{ year }} -&nbsp;
@@ -15,6 +16,9 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class FooterCmt extends Vue {
+  public readonly supportEmail: string =
+    "mailto:incoming+marcus-rise-buylist-pwa-15263181-issue-@incoming.gitlab.com";
+
   get year(): string {
     let val: string;
     if (this.yearNow >= this.yearStart) {
