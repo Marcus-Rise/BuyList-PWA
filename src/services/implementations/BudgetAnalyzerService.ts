@@ -51,15 +51,7 @@ export class BudgetAnalyzerService implements IBudgetAnalyzerService {
       0
     );
 
-    if (!this.bestChoice) {
-      if (listPrice <= this.bestPriceSum) {
-        this.bestChoice = products;
-        this.bestPrioritySum = listPriority;
-      }
-    } else if (
-      listPrice <= this.bestPriceSum &&
-      listPriority > this.bestPrioritySum
-    ) {
+    if (listPrice <= this.bestPriceSum && listPriority > this.bestPrioritySum) {
       this.bestChoice = products;
       this.bestPrioritySum = listPriority;
     }
