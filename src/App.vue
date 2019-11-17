@@ -11,6 +11,7 @@
 <script>
 import { Vue, Component } from "vue-property-decorator";
 import HeaderCmpt from "@/components/HeaderCmpt";
+import FooterCmp from "@/components/FooterCmp";
 
 @Component({
   components: { FooterCmp, HeaderCmpt }
