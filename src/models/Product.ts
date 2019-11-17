@@ -25,10 +25,10 @@ export class Product {
   ) {
     if (typeof titleOrDTO !== "string") {
       this.title = titleOrDTO.title;
-      this.priority = titleOrDTO.priority;
-      this.price = titleOrDTO.price;
-      this.id = titleOrDTO.id;
-      this.productListId = titleOrDTO.productListId;
+      this.priority = parseInt(titleOrDTO.priority);
+      this.price = parseFloat(titleOrDTO.price);
+      this.id = parseInt(titleOrDTO.id);
+      this.productListId = parseInt(titleOrDTO.productListId);
     } else {
       this.title = titleOrDTO;
       this.priority = priority;

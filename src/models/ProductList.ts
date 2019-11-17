@@ -11,7 +11,7 @@ export class ProductList {
     constructor(titleOrDTO: string | IProductListDTOJson = "", id: number = 0) {
         if (typeof titleOrDTO !== "string") {
             this.title = titleOrDTO.title;
-            this.id = titleOrDTO.id;
+            this.id = parseInt(titleOrDTO.id);
         } else {
             this.title = titleOrDTO;
             this.id = id;

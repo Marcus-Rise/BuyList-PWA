@@ -2,44 +2,44 @@
   "productArray": [
     {
       "title": "motherboard",
-      "priority": 5,
-      "price": 15000,
-      "id": 1,
-      "productListId": 1
+      "priority": "5",
+      "price": "15000",
+      "id": "1",
+      "productListId": "1"
     },
     {
       "title": "cpu",
-      "priority": 10,
-      "price": 25000,
-      "id": 2,
-      "productListId": 1
+      "priority": "10",
+      "price": "25000",
+      "id": "2",
+      "productListId": "1"
     },
     {
       "title": "disk",
-      "priority": 3,
-      "price": 10000,
-      "id": 3,
-      "productListId": 1
+      "priority": "3",
+      "price": "10000",
+      "id": "3",
+      "productListId": "1"
     },
     {
       "title": "memory",
-      "priority": 3,
-      "price": 10000,
-      "id": 4,
-      "productListId": 1
+      "priority": "3",
+      "price": "10000",
+      "id": "4",
+      "productListId": "1"
     },
     {
       "title": "gpu",
-      "priority": 7,
-      "price": 40000,
-      "id": 5,
-      "productListId": 1
+      "priority": "7",
+      "price": "40000",
+      "id": "5",
+      "productListId": "1"
     }
   ],
   "productListArray": [
     {
       "title": "Comp build",
-      "id": 1
+      "id": "1"
     }
   ]
 }
