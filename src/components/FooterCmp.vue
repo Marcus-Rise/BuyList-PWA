@@ -8,7 +8,7 @@
                 v-spacer
                 div
                     | &copy; {{ year }} -&nbsp;
-                    a(href="marcus-rise.dev" style="color: inherit") Ilya Konstantinov
+                    a(href="https://marcus-rise.dev" style="color: inherit") Ilya Konstantinov
 </template>
 
 <script lang="ts">
