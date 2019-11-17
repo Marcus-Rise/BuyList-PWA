@@ -42,11 +42,16 @@ describe("BudgetAnalyzerService", () => {
       const cpu: Product = new Product("cpu", 10, 25000);
       const memory: Product = new Product("memory", 3, 10000);
       const gpu: Product = new Product("gpu", 7, 40000);
+      const disk: Product = new Product("disk", 3, 10000);
 
-      const products: Product[] = [motherBoard, cpu, memory, gpu];
+      const products: Product[] = [motherBoard, cpu, disk, memory, gpu];
 
       test("30000", () => {
         expect(service.getBestChoice(products, 30000)).toEqual([cpu]);
+      });
+
+      test("25000", () => {
+        expect(service.getBestChoice(products, 25000)).toEqual([cpu]);
       });
 
       test("50000", () => {
