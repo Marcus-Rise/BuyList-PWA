@@ -55,72 +55,72 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
-    import { ProductList } from "@/models/ProductList";
-    import { IProductListService } from "@/services/IProductListService";
-    import { container } from "tsyringe";
-    import EditableListCmpt from "@/components/EditableListCmpt.vue";
-    import { IEditableListItem } from "@/components/IEditableListItem";
-    import { NotFoundException } from "@/core/Exception/NotFoundException";
-    import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
+import { Component, Vue } from "vue-property-decorator";
+import { ProductList } from "@/models/ProductList";
+import { IProductListService } from "@/services/IProductListService";
+import { container } from "tsyringe";
+import EditableListCmpt from "@/components/EditableListCmpt.vue";
+import { IEditableListItem } from "@/components/IEditableListItem";
+import { NotFoundException } from "@/core/Exception/NotFoundException";
+import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 
-    @Component({
-        components: { ListSearchFilterCmpt, EditableListCmpt }
-    })
-    export default class ProductListArrayView extends Vue {
-        get productListView(): IEditableListItem[] {
-            return this.filteredProductListArray.map(item => {
-                return {
-                    title: item.title,
-                    key: item.id.toString(),
-                    secondary: item.toString(),
-                    href: { name: "productList", params: { id: item.id.toString() } }
-                };
-            });
-        }
+@Component({
+  components: { ListSearchFilterCmpt, EditableListCmpt }
+})
+export default class ProductListArrayView extends Vue {
+  get productListView(): IEditableListItem[] {
+    return this.filteredProductListArray.map(item => {
+      return {
+        title: item.title,
+        key: item.id.toString(),
+        secondary: item.toString(),
+        href: { name: "productList", params: { id: item.id.toString() } }
+      };
+    });
+  }
 
-        get filteredProductListArray(): ProductList[] {
-            return this.productListArray.filter(item =>
-                item.title.includes(this.searchQuery ? this.searchQuery : "")
-            );
-        }
+  get filteredProductListArray(): ProductList[] {
+    return this.productListArray.filter(item =>
+      item.title.includes(this.searchQuery ? this.searchQuery : "")
+    );
+  }
 
-        public searchQuery: string = "";
-        public productListArray: ProductList[] = [];
+  public searchQuery: string = "";
+  public productListArray: ProductList[] = [];
 
-        private readonly productListService: IProductListService = container.resolve(
-            "IProductListService"
-        );
+  private readonly productListService: IProductListService = container.resolve(
+    "IProductListService"
+  );
 
-        created() {
-            this.getAll();
-        }
+  created() {
+    this.getAll();
+  }
 
-        getAll(): void {
-            this.productListService.getAll().then(items => {
-                this.productListArray.length = 0;
-                this.productListArray.push(...items);
-            });
-        }
+  getAll(): void {
+    this.productListService.getAll().then(items => {
+      this.productListArray.length = 0;
+      this.productListArray.push(...items);
+    });
+  }
 
-        addItem(): void {
-            this.$router.push({ name: "addProductList" });
-        }
+  addItem(): void {
+    this.$router.push({ name: "addProductList" });
+  }
 
-        editItem(key: string): void {
-            this.$router.push({ name: "editProductList", params: { id: key } });
-        }
+  editItem(key: string): void {
+    this.$router.push({ name: "editProductList", params: { id: key } });
+  }
 
-        deleteItem(key: string): void {
-            this.productListService.get(parseInt(key)).then(item => {
-                if (item) {
-                    this.productListService.delete(item).then(() => {
-                        this.getAll();
-                    });
-                } else {
-                    throw new NotFoundException("product list by " + key);
-                }
-            });
-        }
-    }
+  deleteItem(key: string): void {
+    this.productListService.get(parseInt(key)).then(item => {
+      if (item) {
+        this.productListService.delete(item).then(() => {
+          this.getAll();
+        });
+      } else {
+        throw new NotFoundException("product list by " + key);
+      }
+    });
+  }
+}
 </script>
