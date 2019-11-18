@@ -15,6 +15,12 @@
                                                         outlined
                                                         v-model="dumpObjStringify"
                                                     )
+                                            v-row
+                                                v-col
+                                                    v-checkbox(
+                                                        v-model="cleanMode"
+                                                        :label="`Затереть текущие данные: ${cleanMode ? 'да' : 'нет'}`"
+                                                    )
                                             v-row(justify="center")
                                                 v-btn(@click="dump()") Импортировать
 </template>
@@ -26,8 +32,12 @@ import { IStorageDumpService } from "@/services/IStorageDumpService";
 
 @Component
 export default class StorageImportDumpCmpt extends Vue {
-  public appendMode: boolean = true;
+  public cleanMode: boolean = false;
   public dumpObjStringify: string = "";
+
+  get appendMode(): boolean {
+    return !this.cleanMode;
+  }
 
   private readonly storageDumpService: IStorageDumpService = container.resolve(
     "IStorageDumpService"
