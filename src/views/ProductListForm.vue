@@ -1,41 +1,41 @@
 <template lang="pug">
-    v-row
-        v-col
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
-                )
-                    v-toolbar-title {{productList.title || "Новый список"}}
+    v-container
+        v-row
+            v-col
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
+                    )
+                        v-toolbar-title {{productList.title || "Новый список"}}
 
-                v-form(
-                    @submit.prevent="create"
-                )
-                    v-container
-                        v-row
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-text-field(
-                                    v-model="productList.title"
-                                    label="Заголовок"
-                                    :error-messages="productList.errors.title"
-                                    @input="productList.errors.title = []"
+                    v-form(
+                        @submit.prevent="create"
+                    )
+                        v-container
+                            v-row
+                                v-col(
+                                    cols="12"
+                                    md="4"
                                 )
-                        v-row
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-btn(@click="create()" color="primary") Сохранить
-                            v-col(
-                                cols="12"
-                                md="4"
-                                v-if="isEdit"
-                            )
-                                v-btn(@click="deleteItem()" color="accent") Удалить
-
+                                    v-text-field(
+                                        v-model="productList.title"
+                                        label="Заголовок"
+                                        :error-messages="productList.errors.title"
+                                        @input="productList.errors.title = []"
+                                    )
+                            v-row
+                                v-col(
+                                    cols="12"
+                                    md="4"
+                                )
+                                    v-btn(@click="create()" color="primary") Сохранить
+                                v-col(
+                                    cols="12"
+                                    md="4"
+                                    v-if="isEdit"
+                                )
+                                    v-btn(@click="deleteItem()" color="accent") Удалить
 
 </template>
 

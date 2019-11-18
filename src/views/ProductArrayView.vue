@@ -1,46 +1,72 @@
 <template lang="pug">
-    v-row(v-if="!!productList")
-        v-col(sm="12")
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
+    v-container(
+        v-if="!!productList"
+        style="height: 100%"
+    )
+        v-row(
+            v-if="productArray.length === 0"
+            style="height: 90%"
+            justify="center"
+            align="center"
+        )
+            v-col
+                v-card.mx-auto(
+                    max-width="344"
+                    outlined
                 )
-                    v-toolbar-title Продукты списка "{{ productList.title }}"
+                    v-card-text
+                        p.display-1.text--primary(align="center") Вперед!
 
-                    v-spacer
+                    v-card-actions
+                        v-btn(
+                            block
+                            x-large
+                            color="accent"
+                            @click="addItem"
+                        ) Создать продукт
 
-                    v-btn(
-                        fab
-                        color="accent"
-                        small
-                        @click="addItem"
+        v-row(v-if="productArray.length > 0")
+            v-col(sm="12")
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
                     )
-                        v-icon(
+                        v-toolbar-title Продукты списка "{{ productList.title }}"
+
+                        v-spacer
+
+                        v-btn(
+                            fab
+                            color="accent"
                             small
-                        ) fa-plus
+                            @click="addItem"
+                        )
+                            v-icon(
+                                small
+                            ) fa-plus
 
-                v-card-text
-                    list-search-filter-cmpt(
-                        v-if="productArray.length > 5"
-                        v-model="searchQuery"
+                    v-card-text
+                        list-search-filter-cmpt(
+                            v-if="productArray.length > 5"
+                            v-model="searchQuery"
+                        )
+
+                        editable-list-cmpt(
+                            :items="productsView"
+                            @edit="editItem"
+                            @delete="deleteItem"
+                        )
+            v-col(sm="12")
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
                     )
+                        v-toolbar-title Подобранный список
 
-                    editable-list-cmpt(
-                        :items="productsView"
-                        @edit="editItem"
-                        @delete="deleteItem"
-                    )
-        v-col(sm="12")
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
-                )
-                    v-toolbar-title Подобранный список
-
-                v-card-text
-                    budget-analyzer-cmpt(:products="productArray")
+                    v-card-text
+                        budget-analyzer-cmpt(:products="productArray")
 </template>
 
 <script lang="ts">

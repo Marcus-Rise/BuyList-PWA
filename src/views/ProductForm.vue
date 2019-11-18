@@ -1,65 +1,65 @@
 <template lang="pug">
-    v-row
-        v-col
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
-                )
-                    v-toolbar-title {{product.title || "Новый продукт"}}
+    v-container
+        v-row
+            v-col
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
+                    )
+                        v-toolbar-title {{product.title || "Новый продукт"}}
 
-                v-form(
-                    @submit.prevent="create"
-                )
-                    v-container
-                        v-row
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-text-field(
-                                    v-model="product.title"
-                                    label="Заголовок"
-                                    :error-messages="product.errors.title"
-                                    @input="product.errors.title = []"
+                    v-form(
+                        @submit.prevent="create"
+                    )
+                        v-container
+                            v-row
+                                v-col(
+                                    cols="12"
+                                    md="4"
                                 )
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-text-field(
-                                    type="number"
-                                    min="0"
-                                    v-model="product.priority"
-                                    label="Приоритет"
-                                    :error-messages="product.errors.priority"
-                                    @input="product.errors.priority = []"
+                                    v-text-field(
+                                        v-model="product.title"
+                                        label="Заголовок"
+                                        :error-messages="product.errors.title"
+                                        @input="product.errors.title = []"
+                                    )
+                                v-col(
+                                    cols="12"
+                                    md="4"
                                 )
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-text-field(
-                                    type="number"
-                                    v-model="product.price"
-                                    min="1"
-                                    label="Цена"
-                                    :error-messages="product.errors.price"
-                                    @input="product.errors.price = []"
+                                    v-text-field(
+                                        type="number"
+                                        min="0"
+                                        v-model="product.priority"
+                                        label="Приоритет"
+                                        :error-messages="product.errors.priority"
+                                        @input="product.errors.priority = []"
+                                    )
+                                v-col(
+                                    cols="12"
+                                    md="4"
                                 )
-                        v-row
-                            v-col(
-                                cols="12"
-                                md="4"
-                            )
-                                v-btn(@click="create()" color="primary") Сохранить
-                            v-col(
-                                cols="12"
-                                md="4"
-                                v-if="isEdit"
-                            )
-                                v-btn(@click="deleteItem()" color="accent") Удалить
-
+                                    v-text-field(
+                                        type="number"
+                                        v-model="product.price"
+                                        min="1"
+                                        label="Цена"
+                                        :error-messages="product.errors.price"
+                                        @input="product.errors.price = []"
+                                    )
+                            v-row
+                                v-col(
+                                    cols="12"
+                                    md="4"
+                                )
+                                    v-btn(@click="create()" color="primary") Сохранить
+                                v-col(
+                                    cols="12"
+                                    md="4"
+                                    v-if="isEdit"
+                                )
+                                    v-btn(@click="deleteItem()" color="accent") Удалить
 
 </template>
 
