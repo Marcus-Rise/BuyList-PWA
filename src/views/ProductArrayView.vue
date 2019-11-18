@@ -1,6 +1,31 @@
 <template lang="pug">
-    v-container
-        v-row(v-if="!!productList")
+    v-container(
+        v-if="!!productList"
+        style="height: 100%"
+    )
+        v-row(
+            v-if="productArray.length === 0"
+            style="height: 90%"
+            justify="center"
+            align="center"
+        )
+            v-col
+                v-card.mx-auto(
+                    max-width="344"
+                    outlined
+                )
+                    v-card-text
+                        p.display-1.text--primary(align="center") Вперед!
+
+                    v-card-actions
+                        v-btn(
+                            block
+                            x-large
+                            color="accent"
+                            @click="addItem"
+                        ) Создать продукт
+
+        v-row(v-if="productArray.length > 0")
             v-col(sm="12")
                 v-card.mx-auto
                     v-toolbar(
