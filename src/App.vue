@@ -2,9 +2,8 @@
     v-app
         header-cmpt
         v-content
-            v-container
-                transition
-                    router-view
+            transition
+                router-view
         footer-cmp
 </template>
 

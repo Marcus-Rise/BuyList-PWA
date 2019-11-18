@@ -1,46 +1,47 @@
 <template lang="pug">
-    v-row(v-if="!!productList")
-        v-col(sm="12")
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
-                )
-                    v-toolbar-title Продукты списка "{{ productList.title }}"
-
-                    v-spacer
-
-                    v-btn(
-                        fab
-                        color="accent"
-                        small
-                        @click="addItem"
+    v-container
+        v-row(v-if="!!productList")
+            v-col(sm="12")
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
                     )
-                        v-icon(
+                        v-toolbar-title Продукты списка "{{ productList.title }}"
+
+                        v-spacer
+
+                        v-btn(
+                            fab
+                            color="accent"
                             small
-                        ) fa-plus
+                            @click="addItem"
+                        )
+                            v-icon(
+                                small
+                            ) fa-plus
 
-                v-card-text
-                    list-search-filter-cmpt(
-                        v-if="productArray.length > 5"
-                        v-model="searchQuery"
+                    v-card-text
+                        list-search-filter-cmpt(
+                            v-if="productArray.length > 5"
+                            v-model="searchQuery"
+                        )
+
+                        editable-list-cmpt(
+                            :items="productsView"
+                            @edit="editItem"
+                            @delete="deleteItem"
+                        )
+            v-col(sm="12")
+                v-card.mx-auto
+                    v-toolbar(
+                        color="teal"
+                        dark
                     )
+                        v-toolbar-title Подобранный список
 
-                    editable-list-cmpt(
-                        :items="productsView"
-                        @edit="editItem"
-                        @delete="deleteItem"
-                    )
-        v-col(sm="12")
-            v-card.mx-auto
-                v-toolbar(
-                    color="teal"
-                    dark
-                )
-                    v-toolbar-title Подобранный список
-
-                v-card-text
-                    budget-analyzer-cmpt(:products="productArray")
+                    v-card-text
+                        budget-analyzer-cmpt(:products="productArray")
 </template>
 
 <script lang="ts">
