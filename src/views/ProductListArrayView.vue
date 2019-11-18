@@ -59,7 +59,7 @@ export default class ProductListArrayView extends Vue {
 
   get filteredProductListArray(): ProductList[] {
     return this.productListArray.filter(item =>
-      item.title.includes(this.searchQuery)
+      item.title.includes(this.searchQuery ? this.searchQuery : "")
     );
   }
 
