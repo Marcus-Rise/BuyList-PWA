@@ -20,6 +20,11 @@
                             small
                         ) fa-plus
 
+                list-search-filter-cmpt(
+                    v-if="productListArray.length > 5"
+                    v-model="searchQuery"
+                )
+
                 editable-list-cmpt(
                     :items="productListView"
                     @edit="editItem"
@@ -35,13 +40,14 @@ import { container } from "tsyringe";
 import EditableListCmpt from "@/components/EditableListCmpt.vue";
 import { IEditableListItem } from "@/components/IEditableListItem";
 import { NotFoundException } from "@/core/Exception/NotFoundException";
+import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 
 @Component({
-  components: { EditableListCmpt }
+  components: { ListSearchFilterCmpt, EditableListCmpt }
 })
 export default class ProductListArrayView extends Vue {
   get productListView(): IEditableListItem[] {
-    return this.productListArray.map(item => {
+    return this.filteredProductListArray.map(item => {
       return {
         title: item.title,
         key: item.id.toString(),
@@ -51,6 +57,13 @@ export default class ProductListArrayView extends Vue {
     });
   }
 
+  get filteredProductListArray(): ProductList[] {
+    return this.productListArray.filter(item =>
+      item.title.includes(this.searchQuery)
+    );
+  }
+
+  public searchQuery: string = "";
   public productListArray: ProductList[] = [];
 
   private readonly productListService: IProductListService = container.resolve(

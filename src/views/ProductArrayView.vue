@@ -21,6 +21,11 @@
                         ) fa-plus
 
                 v-card-text
+                    list-search-filter-cmpt(
+                        v-if="productArray.length > 5"
+                        v-model="searchQuery"
+                    )
+
                     editable-list-cmpt(
                         :items="productsView"
                         @edit="editItem"
@@ -49,13 +54,14 @@ import { ProductList } from "@/models/ProductList";
 import { IProductListService } from "@/services/IProductListService";
 import { NotFoundException } from "@/core/Exception/NotFoundException";
 import BudgetAnalyzerCmpt from "@/components/BudgetAnalyzerCmpt.vue";
+import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 
 @Component({
-  components: { BudgetAnalyzerCmpt, EditableListCmpt }
+  components: { ListSearchFilterCmpt, BudgetAnalyzerCmpt, EditableListCmpt }
 })
 export default class ProductArrayView extends Vue {
   get productsView(): IEditableListItem[] {
-    return this.productArray.map(item => {
+    return this.filteredProductArray.map(item => {
       return {
         title: item.title,
         key: item.id.toString(),
@@ -64,6 +70,13 @@ export default class ProductArrayView extends Vue {
     });
   }
 
+  get filteredProductArray(): Product[] {
+    return this.productArray.filter(item =>
+      item.title.includes(this.searchQuery)
+    );
+  }
+
+  public searchQuery: string = "";
   public productArray: Product[] = [];
   public productList: ProductList | null = null;
 
