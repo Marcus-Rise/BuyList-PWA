@@ -11,6 +11,7 @@
                         )
                             v-text-field.display-1(
                                 v-model="limit"
+                                @change="limit = parseFloat(limit)"
                                 label="Бюджет"
                                 type="number"
                                 min="1"
@@ -49,48 +50,48 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { container } from "tsyringe";
-import { Product } from "@/models/Product";
-import { IBudgetAnalyzerService } from "@/services/IBudgetAnalyzerService";
+    import { Component, Prop, Vue } from "vue-property-decorator";
+    import { container } from "tsyringe";
+    import { Product } from "@/models/Product";
+    import { IBudgetAnalyzerService } from "@/services/IBudgetAnalyzerService";
 
-@Component({
-  filters: {
-    price: (value: string) => `₽ ${parseFloat(value).toFixed(2)}`
-  }
-})
-export default class BudgetAnalyzerCmpt extends Vue {
-  @Prop({ type: Array, required: true }) products!: Product[];
+    @Component({
+        filters: {
+            price: (value: string) => `₽ ${parseFloat(value).toFixed(2)}`
+        }
+    })
+    export default class BudgetAnalyzerCmpt extends Vue {
+        @Prop({ type: Array, required: true }) products!: Product[];
 
-  public limit: number = 0;
+        public limit: number = 0;
 
-  public newList: Product[] = [];
+        public newList: Product[] = [];
 
-  get newListPriceBenefits(): number {
-    return this.limit - this.newListPrice;
-  }
+        get newListPriceBenefits(): number {
+            return this.limit - this.newListPrice;
+        }
 
-  get newListPrice(): number {
-    return this.newList
-      ? this.newList.reduce((sum: number, product: Product) => {
-          return sum + product.price;
-        }, 0)
-      : 0;
-  }
+        get newListPrice(): number {
+            return this.newList
+                ? this.newList.reduce((sum: number, product: Product) => {
+                    return sum + product.price;
+                }, 0)
+                : 0;
+        }
 
-  private readonly budgetAnalyzerService: IBudgetAnalyzerService = container.resolve(
-    "IBudgetAnalyzerService"
-  );
+        private readonly budgetAnalyzerService: IBudgetAnalyzerService = container.resolve(
+            "IBudgetAnalyzerService"
+        );
 
-  match(): void {
-    this.newList.length = 0;
+        match(): void {
+            this.newList.length = 0;
 
-    if (this.limit > 0 && this.products.length > 0) {
-      this.newList = this.budgetAnalyzerService.getBestChoice(
-        this.products,
-        this.limit
-      );
+            if (this.limit > 0 && this.products.length > 0) {
+                this.newList = this.budgetAnalyzerService.getBestChoice(
+                    this.products,
+                    this.limit
+                );
+            }
+        }
     }
-  }
-}
 </script>
