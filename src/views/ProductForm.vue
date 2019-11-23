@@ -16,7 +16,8 @@
                             v-row
                                 v-col(
                                     cols="12"
-                                    md="4"
+                                    xsm="12"
+                                    sm="4"
                                 )
                                     v-text-field(
                                         v-model="product.title"
@@ -26,40 +27,62 @@
                                     )
                                 v-col(
                                     cols="12"
-                                    md="4"
+                                    xsm="12"
+                                    sm="4"
                                 )
                                     v-text-field(
                                         type="number"
                                         min="0"
                                         v-model="product.priority"
+                                        @change="product.priority = parseInt(product.priority)"
                                         label="Приоритет"
                                         :error-messages="product.errors.priority"
                                         @input="product.errors.priority = []"
                                     )
+                                        template(v-slot:prepend)
+                                            v-icon(
+                                            ) fa-sort
                                 v-col(
                                     cols="12"
-                                    md="4"
+                                    xsm="12"
+                                    sm="4"
                                 )
                                     v-text-field(
                                         type="number"
                                         v-model="product.price"
+                                        @change="product.price = parseFloat(product.price)"
                                         min="1"
                                         label="Цена"
                                         :error-messages="product.errors.price"
                                         @input="product.errors.price = []"
                                     )
+                                        template(v-slot:prepend)
+                                            v-icon(
+                                            ) fa-ruble-sign
                             v-row
                                 v-col(
                                     cols="12"
-                                    md="4"
+                                    xsm="12"
+                                    sm="4"
                                 )
-                                    v-btn(@click="create()" color="primary") Сохранить
+                                    v-btn(
+                                        type="submit"
+                                        block
+                                        large
+                                        color="primary"
+                                    ) Сохранить
                                 v-col(
-                                    cols="12"
-                                    md="4"
                                     v-if="isEdit"
+                                    cols="12"
+                                    xsm="12"
+                                    sm="4"
                                 )
-                                    v-btn(@click="deleteItem()" color="accent") Удалить
+                                    v-btn(
+                                        @click="deleteItem()"
+                                        color="accent"
+                                        block
+                                        large
+                                    ) Удалить
 
 </template>
 

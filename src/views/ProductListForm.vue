@@ -7,7 +7,7 @@
                         color="teal"
                         dark
                     )
-                        v-toolbar-title {{productList.title || "Новый список"}}
+                        v-toolbar-title {{productList.title ? `Список "${productList.title}"` : "Новый список"}}
 
                     v-form(
                         @submit.prevent="create"
@@ -16,26 +16,38 @@
                             v-row
                                 v-col(
                                     cols="12"
-                                    md="4"
                                 )
                                     v-text-field(
                                         v-model="productList.title"
                                         label="Заголовок"
                                         :error-messages="productList.errors.title"
                                         @input="productList.errors.title = []"
+                                        solo
                                     )
                             v-row
                                 v-col(
                                     cols="12"
-                                    md="4"
+                                    xsm="12"
+                                    sm="4"
                                 )
-                                    v-btn(@click="create()" color="primary") Сохранить
+                                    v-btn(
+                                        type="submit"
+                                        color="primary"
+                                        large
+                                        block
+                                    ) Сохранить
                                 v-col(
-                                    cols="12"
-                                    md="4"
                                     v-if="isEdit"
+                                    cols="12"
+                                    xsm="12"
+                                    sm="4"
                                 )
-                                    v-btn(@click="deleteItem()" color="accent") Удалить
+                                    v-btn(
+                                        @click="deleteItem()"
+                                        color="accent"
+                                        large
+                                        block
+                                    ) Удалить
 
 </template>
 
