@@ -16,7 +16,7 @@
                                 min="1"
                                 required
                                 outlined
-                                prepend-icon="fa-wallet"
+                                prepend-icon="fa-ruble-sign"
                             )
                         v-col(
                             cols="12"
@@ -29,6 +29,15 @@
                                 block
                                 x-large
                             ) Подобрать
+                    v-row(v-if="newListPrice > 0")
+                        v-col
+                            v-card(
+                                outlined
+                            )
+                                v-card-title Сумма списка: {{ newListPrice | price}}
+                                v-card-subtitle(
+                                    v-if="newListPriceBenefits > 0"
+                                ) Разница в плюс: {{newListPriceBenefits | price}}
 
                     v-row(v-if="newList")
                         v-list
@@ -45,13 +54,29 @@
     import { Product } from "@/models/Product";
     import { IBudgetAnalyzerService } from "@/services/IBudgetAnalyzerService";
 
-    @Component
+    @Component({
+        filters: {
+            price: (value: string) => `₽ ${parseFloat(value).toFixed(2)}`,
+        }
+    })
     export default class BudgetAnalyzerCmpt extends Vue {
         @Prop({ type: Array, required: true }) products!: Product[];
 
         public limit: number = 0;
 
         public newList: Product[] = [];
+
+        get newListPriceBenefits(): number {
+            return this.limit - this.newListPrice;
+        }
+
+        get newListPrice(): number {
+            return this.newList
+                ? this.newList.reduce((sum: number, product: Product) => {
+                    return sum + product.price;
+                }, 0)
+                : 0;
+        }
 
         private readonly budgetAnalyzerService: IBudgetAnalyzerService = container.resolve(
             "IBudgetAnalyzerService"
