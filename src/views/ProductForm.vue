@@ -87,64 +87,64 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
-    import { container } from "tsyringe";
-    import { Product } from "@/models/Product";
-    import { IProductService } from "@/services/IProductService";
-    import { ProductDTO } from "@/models/ProductDTO";
+import { Component, Vue } from "vue-property-decorator";
+import { container } from "tsyringe";
+import { Product } from "@/models/Product";
+import { IProductService } from "@/services/IProductService";
+import { ProductDTO } from "@/models/ProductDTO";
 
-    @Component
-    export default class ProductForm extends Vue {
-        get isEdit(): boolean {
-            return this.product.id !== new Product().id;
-        }
+@Component
+export default class ProductForm extends Vue {
+  get isEdit(): boolean {
+    return this.product.id !== new Product().id;
+  }
 
-        public product: Product = new Product();
+  public product: Product = new Product();
 
-        private readonly productService: IProductService = container.resolve(
-            "IProductService"
-        );
+  private readonly productService: IProductService = container.resolve(
+    "IProductService"
+  );
 
-        mounted() {
-            if (this.$route.params.id !== undefined) {
-                this.productService.get(parseInt(this.$route.params.id)).then(item => {
-                    this.product = item;
-                });
-            }
-
-            if (this.$route.params.productListId !== undefined) {
-                this.product.productListId = parseInt(this.$route.params.productListId);
-            }
-        }
-
-        create(): void {
-            if (this.validate()) {
-                if (this.isEdit) {
-                    this.productService.update(this.product).then(() => {
-                        this.routerBack();
-                    });
-                } else {
-                    this.productService.save(this.product).then(() => {
-                        this.routerBack();
-                    });
-                }
-            }
-        }
-
-        deleteItem(): void {
-            this.productService.delete(this.product).then(() => {
-                this.$router.go(-1);
-            });
-        }
-
-        routerBack(): void {
-            this.$router.go(-1);
-        }
-
-        validate(): boolean {
-            this.product.clear();
-
-            return new ProductDTO(this.product).validate();
-        }
+  mounted() {
+    if (this.$route.params.id !== undefined) {
+      this.productService.get(parseInt(this.$route.params.id)).then(item => {
+        this.product = item;
+      });
     }
+
+    if (this.$route.params.productListId !== undefined) {
+      this.product.productListId = parseInt(this.$route.params.productListId);
+    }
+  }
+
+  create(): void {
+    if (this.validate()) {
+      if (this.isEdit) {
+        this.productService.update(this.product).then(() => {
+          this.routerBack();
+        });
+      } else {
+        this.productService.save(this.product).then(() => {
+          this.routerBack();
+        });
+      }
+    }
+  }
+
+  deleteItem(): void {
+    this.productService.delete(this.product).then(() => {
+      this.$router.go(-1);
+    });
+  }
+
+  routerBack(): void {
+    this.$router.go(-1);
+  }
+
+  validate(): boolean {
+    this.product.clear();
+
+    return new ProductDTO(this.product).validate();
+  }
+}
 </script>
