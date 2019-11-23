@@ -95,7 +95,7 @@ export default class ProductArrayView extends Vue {
         return {
           title: item.title,
           key: item.id.toString(),
-          secondary: item.toString()
+          secondary: item.toStringFormatted()
         };
       });
   }
