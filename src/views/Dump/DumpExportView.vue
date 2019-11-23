@@ -14,6 +14,7 @@
                     color="primary"
                     block
                     large
+                    v-clipboard="() => dumpObj"
                 ) Скопировать
 
 </template>
@@ -22,6 +23,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import { IStorageDumpService } from "@/services/IStorageDumpService";
 import { container } from "tsyringe";
+import Clipboard from "v-clipboard";
+
+Vue.use(Clipboard);
 
 @Component
 export default class DumpExportView extends Vue {
