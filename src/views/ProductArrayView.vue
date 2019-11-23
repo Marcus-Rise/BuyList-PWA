@@ -87,13 +87,17 @@ import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 })
 export default class ProductArrayView extends Vue {
   get productsView(): IEditableListItem[] {
-    return this.filteredProductArray.map(item => {
-      return {
-        title: item.title,
-        key: item.id.toString(),
-        secondary: item.toString()
-      };
-    });
+    return this.filteredProductArray
+      .sort((a: Product, b: Product): number => {
+        return b.priority - a.priority;
+      })
+      .map((item: Product) => {
+        return {
+          title: item.title,
+          key: item.id.toString(),
+          secondary: item.toString()
+        };
+      });
   }
 
   get filteredProductArray(): Product[] {
