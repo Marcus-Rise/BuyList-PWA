@@ -2,13 +2,11 @@
     v-container
         v-row(align="center")
             v-col
-                v-window.elevation-1(vertical)
-                    v-window-item
-                        v-container
-                            v-card(flat)
-                                v-card-text
-                                    v-row.mb-4(align="center")
-                                        p {{dumpObj}}
+                v-card(flat)
+                    v-card-text
+                        v-row.mb-4(align="center")
+                            v-col
+                                p {{dumpObj}}
             v-col(cols="12")
                 v-btn(
                     color="primary"

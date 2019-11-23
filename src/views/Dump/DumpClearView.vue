@@ -2,17 +2,17 @@
     v-container
         v-row(align="center")
             v-col
-                v-window.elevation-1(vertical)
-                    v-window-item
-                        v-container
-                            v-card(flat)
-                                v-card-text
-                                    v-row.mb-4(align="center")
-                                        v-col(align="center")
-                                            v-btn(
-                                                color="accent"
-                                                @click="clear"
-                                            ) Очистить данные
+                v-card
+                    v-card-title Вы уверены?
+                    v-card-actions
+                        v-row
+                            v-col
+                                v-btn(
+                                    color="accent"
+                                    @click="clear"
+                                    block
+                                    large
+                                ) Очистить данные
 
 </template>
 
@@ -28,7 +28,9 @@ export default class DumpClearView extends Vue {
   );
 
   clear(): void {
-    this.storageDumpService.clear();
+    this.storageDumpService.clear().then(() => {
+      this.$router.push("/");
+    });
   }
 }
 </script>
