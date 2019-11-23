@@ -21,7 +21,7 @@
                                 min="1"
                                 required
                                 outlined
-                                append-icon="fa-ruble-sign"
+                                prepend-icon="fa-ruble-sign"
                             )
                         v-col(
                             cols="12"
