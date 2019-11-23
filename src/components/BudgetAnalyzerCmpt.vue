@@ -1,7 +1,10 @@
 <template lang="pug">
     v-row
         v-col
-            v-form(@submit.prevent="match")
+            v-form(
+                @submit.prevent="match"
+                lazy-validation
+            )
                 v-container
                     v-row
                         v-col(
@@ -12,6 +15,7 @@
                             v-text-field.display-1(
                                 v-model="limit"
                                 @change="limit = parseFloat(limit)"
+                                :rules="[v => parseFloat(v) > 0 || 'Сумма бюджета должна быть больше нуля']"
                                 label="Бюджет"
                                 type="number"
                                 min="1"
