@@ -7,6 +7,7 @@ export class ProductList extends AbstractValidatable {
     public errors: ValidationErrorsObject;
     public title: string;
     public id: number;
+    public productsCount: number;
 
     constructor(dto?: IProductListDTOJson);
     constructor(title?: string, id?: number);
@@ -21,6 +22,8 @@ export class ProductList extends AbstractValidatable {
             this.id = id;
         }
 
+        this.productsCount = 0;
+
         this.errors = {
             title: [],
         };
@@ -28,5 +31,9 @@ export class ProductList extends AbstractValidatable {
 
     toString(): string {
         return `id: ${this.id}; title: ${this.title}`
+    }
+
+    toStringFormatted(): string {
+        return `Количество элементов в списке: ${this.productsCount}`
     }
 }

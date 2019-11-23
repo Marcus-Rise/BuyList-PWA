@@ -63,6 +63,7 @@ import EditableListCmpt from "@/components/EditableListCmpt.vue";
 import { IEditableListItem } from "@/components/IEditableListItem";
 import { NotFoundException } from "@/core/Exception/NotFoundException";
 import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
+import { IProductService } from "@/services/IProductService";
 
 @Component({
   components: { ListSearchFilterCmpt, EditableListCmpt }
@@ -73,7 +74,7 @@ export default class ProductListArrayView extends Vue {
       return {
         title: item.title,
         key: item.id.toString(),
-        secondary: item.toString(),
+        secondary: item.toStringFormatted(),
         href: { name: "productList", params: { id: item.id.toString() } }
       };
     });
@@ -91,13 +92,22 @@ export default class ProductListArrayView extends Vue {
   private readonly productListService: IProductListService = container.resolve(
     "IProductListService"
   );
+  private readonly productService: IProductService = container.resolve(
+    "IProductService"
+  );
 
   created() {
     this.getAll();
   }
 
-  getAll(): void {
+  async getAll(): Promise<void> {
     this.productListService.getAll().then(items => {
+      for (const item of items) {
+        this.productService.getByList(item.id).then(products => {
+          item.productsCount = products.length;
+        });
+      }
+
       this.productListArray.length = 0;
       this.productListArray.push(...items);
     });
