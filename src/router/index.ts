@@ -79,6 +79,11 @@ const routes = [
           )
       }
     ]
+  },
+  {
+    path: "*",
+    component: () =>
+      import(/* webpackChunkName: "error404" */ "@/views/ErrorNotFoundView.vue")
   }
 ];
 
