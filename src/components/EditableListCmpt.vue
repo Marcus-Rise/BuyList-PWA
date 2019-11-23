@@ -4,7 +4,9 @@
             v-list-item-content
                 router-link(:to="item.href ? item.href : {}" style="text-decoration: none; color: inherit;")
                     v-list-item-title {{item.title}}
-                    v-list-item-subtitle {{item.secondary}}
+                    v-list-item-subtitle(
+                        v-html="item.secondary"
+                    )
             v-list-item-action
                 v-btn(icon @click="editItem(item.key)")
                     v-icon(small) fa-pen

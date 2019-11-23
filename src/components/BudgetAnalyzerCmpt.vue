@@ -49,7 +49,9 @@
                             v-list-item(v-for="item of newList" :key="item.key")
                                 v-list-item-content
                                     v-list-item-title {{item.title}}
-                                    v-list-item-subtitle {{item.toString()}}
+                                    v-list-item-subtitle(
+                                        v-html="item.toStringFormatted()"
+                                    )
 
 </template>
 
