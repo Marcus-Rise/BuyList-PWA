@@ -14,18 +14,21 @@
                         v-icon fa-ellipsis-v
 
                 v-list
-                    v-list-item(link)
-                        v-list-item-title(
-                            @click="storageDumpExport()"
-                        ) Экспорт данных
-                    v-list-item(link)
-                        v-list-item-title(
-                            @click="storageDumpImport()"
-                        ) Импорт данных
-                    v-list-item(link)
-                        v-list-item-title(
-                            @click="storageDumpClear()"
-                        ) Очистить данные
+                    v-list-item(
+                        link
+                        :to="{ name: \"dumpExport\" }"
+                    )
+                        v-list-item-title Экспорт данных
+                    v-list-item(
+                        link
+                        :to="{ name: \"dumpImport\" }"
+                    )
+                        v-list-item-title Импорт данных
+                    v-list-item(
+                        link
+                        :to="{ name: \"dumpClear\" }"
+                    )
+                        v-list-item-title Очистить данные
 
         v-navigation-drawer(
             v-model="showMenu"
