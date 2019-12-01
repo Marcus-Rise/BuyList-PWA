@@ -1,7 +1,7 @@
 <template>
   <v-snackbar top v-model="updateExists">
     Доступна новая версия!
-    <v-btn color="accent" text @click="refreshApp">Обновить </v-btn>
+    <v-btn color="accent" text @click="refreshApp">Обновить</v-btn>
   </v-snackbar>
 </template>
 
