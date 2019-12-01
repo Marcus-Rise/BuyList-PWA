@@ -1,4 +1,8 @@
 const ImageMinPlugin = require("imagemin-webpack-plugin").default;
+const packageJson = require("./package");
+
+process.env.VUE_APP_VERSION = packageJson.version;
+process.env.VUE_APP_AUTHOR = packageJson.author;
 
 module.exports = {
   transpileDependencies: ["vuetify"],
