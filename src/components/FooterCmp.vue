@@ -6,13 +6,17 @@
             v-layout
                 div: a(:href="supportEmail" style="color: inherit") Support email
                 v-spacer
+                div версия: {{appService.version}}
+                v-spacer
                 div
                     | &copy; {{ year }} -&nbsp;
-                    a(href="https://marcus-rise.dev" style="color: inherit") Ilya Konstantinov
+                    a(href="https://marcus-rise.dev" style="color: inherit") {{appService.author}}
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { IAppService } from "@/services/IAppService";
+import { container } from "tsyringe";
 
 @Component
 export default class FooterCmt extends Vue {
@@ -32,5 +36,6 @@ export default class FooterCmt extends Vue {
 
   private readonly yearStart: number = 2019;
   private readonly yearNow: number = new Date().getFullYear();
+  private readonly appService: IAppService = container.resolve("IAppService");
 }
 </script>
