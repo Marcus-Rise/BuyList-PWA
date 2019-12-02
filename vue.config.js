@@ -1,5 +1,6 @@
 const ImageMinPlugin = require("imagemin-webpack-plugin").default;
 const packageJson = require("./package");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 process.env.VUE_APP_VERSION = packageJson.version;
 process.env.VUE_APP_AUTHOR = packageJson.author;
@@ -24,6 +25,22 @@ module.exports = {
         disable: process.env.NODE_ENV !== "production", // Disable during development
         pngquant: {
           quality: "95-100"
+        }
+      }),
+      new FaviconsWebpackPlugin({
+        logo: "./src/assets/logo.png",
+        prefix: "",
+        favicons: {
+          appName: "BuyList",
+          appDescription: "BuyList App",
+          developerName: packageJson.author,
+          developerURL: "https://marcus-rise.dev", // prevent retrieving from the nearest package.json
+          background: "#ddd",
+          theme_color: "#333",
+          icons: {
+            coast: false,
+            yandex: false
+          }
         }
       })
     ]
