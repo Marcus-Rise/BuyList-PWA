@@ -37,36 +37,54 @@
             dark
         )
             v-list-item
-                v-list-item-avatar
-                    v-img(src="/img/profile-min.png")
                 v-list-item-content BuyList
 
             v-divider
 
             v-list(dense)
-                v-list-item(link :to="{ name: 'productListArray' }")
+                v-list-item(link :to="{ name: 'productListArray' }" exact)
                     v-list-item-icon
                         v-icon fa-list-ul
-                    v-list-item-content Списки продуктов
+                    v-list-item-content Все списки
+                v-list-item(
+                    v-for="item of productListArray"
+                    link
+                    :to="{ name: 'productList', params: { id: item.id.toString() } }"
+                )
+                    v-list-item-icon
+                        v-icon fa-list-ul
+                    v-list-item-content Список "{{item.title}}"
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+    import { Component, Vue } from "vue-property-decorator";
+    import { IProductListService } from "@/services/IProductListService";
+    import { container } from "tsyringe";
+    import { ProductList } from "@/models/ProductList";
 
-@Component
-export default class HeaderCmpt extends Vue {
-  public showMenu: boolean = false;
+    @Component
+    export default class HeaderCmpt extends Vue {
+        public showMenu: boolean = false;
+        public productListArray: ProductList[] = [];
 
-  storageDumpImport(): void {
-    this.$router.push({ name: "dumpImport" });
-  }
+        private readonly productListService: IProductListService = container.resolve(
+            "IProductListService"
+        );
 
-  storageDumpExport(): void {
-    this.$router.push({ name: "dumpExport" });
-  }
+        async created() {
+            this.productListArray = await this.productListService.getAll();
+        }
 
-  storageDumpClear(): void {
-    this.$router.push({ name: "dumpClear" });
-  }
-}
+        storageDumpImport(): void {
+            this.$router.push({ name: "dumpImport" });
+        }
+
+        storageDumpExport(): void {
+            this.$router.push({ name: "dumpExport" });
+        }
+
+        storageDumpClear(): void {
+            this.$router.push({ name: "dumpClear" });
+        }
+    }
 </script>
