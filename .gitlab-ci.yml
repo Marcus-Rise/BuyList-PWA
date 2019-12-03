@@ -1,10 +1,9 @@
-image: node:latest
-
 stages:
   - build
   - deploy
 
 build:
+  image: node:11
   stage: build
   cache:
     key: ${CI_COMMIT_REF_SLUG}
