@@ -18,17 +18,20 @@ if (process.env.NODE_ENV === "production") {
     cached() {
       console.log("Content has been cached for offline use.");
     },
-    updatefound() {
+    updatefound(registration) {
+      document.dispatchEvent(
+          new CustomEvent("swUpdating", { detail: registration })
+      );
       console.log("New content is downloading.");
     },
     updated(registration) {
       document.dispatchEvent(
-        new CustomEvent("swUpdated", { detail: registration })
+          new CustomEvent("swUpdated", { detail: registration })
       );
     },
     offline() {
       console.log(
-        "No internet connection found. App is running in offline mode."
+          "No internet connection found. App is running in offline mode."
       );
     },
     error(error) {

@@ -6,6 +6,7 @@
   "homepage": "https://buy-list-app.marcus-rise.dev/",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build-fast": "vue-cli-service build",
     "build": "vue-cli-service build --modern",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
