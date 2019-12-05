@@ -1,10 +1,12 @@
-export abstract class AbstractException {
+export abstract class AbstractException extends Error {
   protected constructor(
-    protected readonly name: string,
-    protected readonly message: string
-  ) {}
+      public readonly name: string,
+      public readonly message: string,
+  ) {
+    super(message);
+  }
 
   public toString(): string {
-    return `${this.name} ${this.message}`;
+    return `${this.name}: ${this.message}`;
   }
 }
