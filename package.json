@@ -6,6 +6,7 @@
   "homepage": "https://buy-list-app.marcus-rise.dev/",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve-prod": "serve dist",
     "build-fast": "vue-cli-service build",
     "build": "vue-cli-service build --modern",
     "test:unit": "vue-cli-service test:unit",
@@ -49,6 +50,7 @@
     "pug-plain-loader": "^1.0.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
+    "serve": "^11.2.0",
     "typescript": "^3.5.3",
     "vue-cli-plugin-vuetify": "^2.0.2",
     "vue-template-compiler": "^2.6.10",
