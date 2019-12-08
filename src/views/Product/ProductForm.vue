@@ -87,21 +87,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { container } from "tsyringe";
-import { Product } from "@/models/Product";
-import { IProductService } from "@/services/IProductService";
-import { ProductDTO } from "@/models/ProductDTO";
+    import { Component, Vue } from "vue-property-decorator";
+    import { container } from "tsyringe";
+    import { Product } from "@/models/Product";
+    import { IProductService } from "@/services/IProductService";
+    import { ProductDTO } from "@/models/ProductDTO";
 
-@Component
-export default class ProductForm extends Vue {
-  get isEdit(): boolean {
-    return this.product.id !== new Product().id;
-  }
+    @Component
+    export default class ProductForm extends Vue {
+        get isEdit(): boolean {
+            return this.product.id !== new Product().id;
+        }
 
-  public product: Product = new Product();
+        public product: Product = new Product();
 
-  private readonly productService: IProductService = container.resolve(
+        private readonly productService: IProductService = container.resolve(
     "IProductService"
   );
 

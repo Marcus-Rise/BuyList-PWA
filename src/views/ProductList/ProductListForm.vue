@@ -52,21 +52,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { ProductList } from "@/models/ProductList";
-import { IProductListService } from "@/services/IProductListService";
-import { container } from "tsyringe";
-import { ProductListDTO } from "@/models/ProductListDTO";
+    import { Component, Vue } from "vue-property-decorator";
+    import { ProductList } from "@/models/ProductList";
+    import { IProductListService } from "@/services/IProductListService";
+    import { container } from "tsyringe";
+    import { ProductListDTO } from "@/models/ProductListDTO";
 
-@Component
-export default class ProductListForm extends Vue {
-  get isEdit(): boolean {
-    return this.productList.id !== new ProductList().id;
-  }
+    @Component
+    export default class ProductListForm extends Vue {
+        get isEdit(): boolean {
+            return this.productList.id !== new ProductList().id;
+        }
 
-  public productList: ProductList = new ProductList();
+        public productList: ProductList = new ProductList();
 
-  private readonly productListService: IProductListService = container.resolve(
+        private readonly productListService: IProductListService = container.resolve(
     "IProductListService"
   );
 
