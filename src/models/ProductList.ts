@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import {IProductListDTOJson} from "@/models/ProductListDTO";
+import { IProductListDTOJson } from "@/models/ProductListDTO";
 import { AbstractValidatable, ValidationErrorsObject } from "@/core/AbstractValidatable";
 
 export class ProductList extends AbstractValidatable {
@@ -31,9 +29,5 @@ export class ProductList extends AbstractValidatable {
 
     toString(): string {
         return `id: ${this.id}; title: ${this.title}`
-    }
-
-    toStringFormatted(): string {
-        return `Количество элементов в списке: ${this.productsCount}`
     }
 }
