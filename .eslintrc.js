@@ -4,11 +4,8 @@ module.exports = {
     node: true
   },
   extends: [
-    "plugin:prettier/recommended",
     "plugin:vue/essential",
-    "@vue/prettier",
     "@vue/typescript",
-    "prettier"
   ],
   parserOptions: {
     parser: "@typescript-eslint/parser"
@@ -17,7 +14,6 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
   },
-  plugins: ["prettier"],
   overrides: [
     {
       files: [
