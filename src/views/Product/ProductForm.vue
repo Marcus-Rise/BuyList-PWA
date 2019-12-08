@@ -34,10 +34,9 @@
                                         type="number"
                                         min="0"
                                         v-model="product.priority"
-                                        @change="product.priority = parseInt(product.priority)"
+                                        @input="() => {product.errors.priority = []; product.priority = parseInt(String(product.priority))}"
                                         label="Приоритет"
                                         :error-messages="product.errors.priority"
-                                        @input="product.errors.priority = []"
                                     )
                                         template(v-slot:prepend)
                                             v-icon(
@@ -50,11 +49,10 @@
                                     v-text-field(
                                         type="number"
                                         v-model="product.price"
-                                        @change="product.price = parseFloat(product.price)"
+                                        @input="() => {product.errors.price = []; product.price = parseFloat(String(product.price))}"
                                         min="1"
                                         label="Цена"
                                         :error-messages="product.errors.price"
-                                        @input="product.errors.price = []"
                                     )
                                         template(v-slot:prepend)
                                             v-icon(
@@ -102,49 +100,49 @@
         public product: Product = new Product();
 
         private readonly productService: IProductService = container.resolve(
-    "IProductService"
-  );
+            "IProductService"
+        );
 
-  mounted() {
-    if (this.$route.params.id !== undefined) {
-      this.productService.get(parseInt(this.$route.params.id)).then(item => {
-        this.product = item;
-      });
+        mounted() {
+            if (this.$route.params.id !== undefined) {
+                this.productService.get(parseInt(this.$route.params.id)).then(item => {
+                    this.product = item;
+                });
+            }
+
+            if (this.$route.params.productListId !== undefined) {
+                this.product.productListId = parseInt(this.$route.params.productListId);
+            }
+        }
+
+        create(): void {
+            if (this.validate()) {
+                if (this.isEdit) {
+                    this.productService.update(this.product).then(() => {
+                        this.routerBack();
+                    });
+                } else {
+                    this.productService.save(this.product).then(() => {
+                        this.routerBack();
+                    });
+                }
+            }
+        }
+
+        deleteItem(): void {
+            this.productService.delete(this.product).then(() => {
+                this.$router.go(-1);
+            });
+        }
+
+        routerBack(): void {
+            this.$router.go(-1);
+        }
+
+        validate(): boolean {
+            this.product.clear();
+
+            return new ProductDTO(this.product).validate();
+        }
     }
-
-    if (this.$route.params.productListId !== undefined) {
-      this.product.productListId = parseInt(this.$route.params.productListId);
-    }
-  }
-
-  create(): void {
-    if (this.validate()) {
-      if (this.isEdit) {
-        this.productService.update(this.product).then(() => {
-          this.routerBack();
-        });
-      } else {
-        this.productService.save(this.product).then(() => {
-          this.routerBack();
-        });
-      }
-    }
-  }
-
-  deleteItem(): void {
-    this.productService.delete(this.product).then(() => {
-      this.$router.go(-1);
-    });
-  }
-
-  routerBack(): void {
-    this.$router.go(-1);
-  }
-
-  validate(): boolean {
-    this.product.clear();
-
-    return new ProductDTO(this.product).validate();
-  }
-}
 </script>

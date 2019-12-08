@@ -23,11 +23,11 @@ export class ProductList extends AbstractValidatable {
         this.productsCount = 0;
 
         this.errors = {
-            title: [],
+            title: []
         };
     }
 
     toString(): string {
-        return `id: ${this.id}; title: ${this.title}`
+        return `id: ${this.id}; title: ${this.title}`;
     }
 }

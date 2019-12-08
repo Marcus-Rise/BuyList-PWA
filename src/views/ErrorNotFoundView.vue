@@ -35,12 +35,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+    import { Component, Vue } from "vue-property-decorator";
 
-@Component
-export default class ErrorNotFoundView extends Vue {
-  back(): void {
-    this.$router.go(-1);
-  }
-}
+    @Component
+    export default class ErrorNotFoundView extends Vue {
+        back(): void {
+            this.$router.go(-1);
+        }
+    }
 </script>

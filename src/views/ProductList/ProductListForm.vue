@@ -67,45 +67,45 @@
         public productList: ProductList = new ProductList();
 
         private readonly productListService: IProductListService = container.resolve(
-    "IProductListService"
-  );
+            "IProductListService"
+        );
 
-  created() {
-    if (this.$route.params.id !== undefined) {
-      this.productListService
-        .get(parseInt(this.$route.params.id))
-        .then(item => {
-          this.productList = item;
-        });
+        created() {
+            if (this.$route.params.id !== undefined) {
+                this.productListService
+                    .get(parseInt(this.$route.params.id))
+                    .then(item => {
+                        this.productList = item;
+                    });
+            }
+        }
+
+        create(): void {
+            if (this.validate()) {
+                if (this.isEdit) {
+                    this.productListService.update(this.productList).then(() => {
+                        this.routerBack();
+                    });
+                } else {
+                    this.productListService.save(this.productList).then(() => {
+                        this.routerBack();
+                    });
+                }
+            }
+        }
+
+        deleteItem(): void {
+            this.productListService.delete(this.productList);
+        }
+
+        routerBack(): void {
+            this.$router.go(-1);
+        }
+
+        validate(): boolean {
+            this.productList.clear();
+
+            return new ProductListDTO(this.productList).validate();
+        }
     }
-  }
-
-  create(): void {
-    if (this.validate()) {
-      if (this.isEdit) {
-        this.productListService.update(this.productList).then(() => {
-          this.routerBack();
-        });
-      } else {
-        this.productListService.save(this.productList).then(() => {
-          this.routerBack();
-        });
-      }
-    }
-  }
-
-  deleteItem(): void {
-    this.productListService.delete(this.productList);
-  }
-
-  routerBack(): void {
-    this.$router.go(-1);
-  }
-
-  validate(): boolean {
-    this.productList.clear();
-
-    return new ProductListDTO(this.productList).validate();
-  }
-}
 </script>
