@@ -8,7 +8,7 @@
     import { IAppService } from "@/services/IAppService";
 
     @Component
-    export default class ChangeLogCmpt extends Vue {
-        public source: string = container.resolve<IAppService>("IAppService").changeLog || "awd";
+    export default class ChangeLogView extends Vue {
+        public source: string = container.resolve<IAppService>("IAppService").changeLog;
     }
 </script>

@@ -70,27 +70,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { container } from "tsyringe";
-import EditableListCmpt from "@/components/EditableListCmpt.vue";
-import { IEditableListItem } from "@/components/IEditableListItem";
-import { Product } from "@/models/Product";
-import { IProductService } from "@/services/IProductService";
-import { ProductList } from "@/models/ProductList";
-import { IProductListService } from "@/services/IProductListService";
-import { NotFoundException } from "@/core/Exception/NotFoundException";
-import BudgetAnalyzerCmpt from "@/components/BudgetAnalyzerCmpt.vue";
-import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
+    import { Component, Vue } from "vue-property-decorator";
+    import { container } from "tsyringe";
+    import EditableListCmpt from "@/components/EditableListCmpt.vue";
+    import { IEditableListItem } from "@/components/IEditableListItem";
+    import { Product } from "@/models/Product";
+    import { IProductService } from "@/services/IProductService";
+    import { ProductList } from "@/models/ProductList";
+    import { IProductListService } from "@/services/IProductListService";
+    import { NotFoundException } from "@/core/Exception/NotFoundException";
+    import BudgetAnalyzerCmpt from "@/components/BudgetAnalyzerCmpt.vue";
+    import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 
-@Component({
-  components: { ListSearchFilterCmpt, BudgetAnalyzerCmpt, EditableListCmpt }
-})
-export default class ProductArrayView extends Vue {
-  get productsView(): IEditableListItem[] {
-    return this.filteredProductArray
-      .sort((a: Product, b: Product): number => {
-        return b.priority - a.priority;
-      })
+    @Component({
+        components: { ListSearchFilterCmpt, BudgetAnalyzerCmpt, EditableListCmpt }
+    })
+    export default class ProductArrayView extends Vue {
+        get productsView(): IEditableListItem[] {
+            return this.filteredProductArray
+                .sort((a: Product, b: Product): number => {
+                    return b.priority - a.priority;
+                })
       .map((item: Product) => {
         return {
           title: item.title,
@@ -118,11 +118,11 @@ export default class ProductArrayView extends Vue {
   );
 
   created() {
-    this.productListService.get(parseInt(this.$route.params.id)).then(item => {
-      this.productList = item;
+      this.productListService.get(parseInt(this.$route.params.productListId)).then(item => {
+          this.productList = item;
 
-      this.getAll();
-    });
+          this.getAll();
+      });
   }
 
   getAll(): void {

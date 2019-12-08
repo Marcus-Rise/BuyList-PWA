@@ -1,96 +1,36 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import VueRouter, { RouteConfig } from "vue-router";
+import { productListRouteConfig } from "@/router/productListRouteConfig";
+import { productRouteConfig } from "@/router/productRouteConfig";
+import { dumpRouteConfig } from "@/router/dumpRouteConfig";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    name: "productListArray",
-    component: () =>
-      import(
-        /* webpackChunkName: "productListArray" */ "@/views/ProductListArrayView.vue"
-      )
-  },
-  {
-    path: "/add-product-list",
-    name: "addProductList",
-    component: () =>
-      import(
-        /* webpackChunkName: "addProductList" */ "@/views/ProductListForm.vue"
-      )
-  },
-  {
-    path: "/edit-product-list/:id",
-    name: "editProductList",
-    component: () =>
-      import(
-        /* webpackChunkName: "editProductList" */ "@/views/ProductListForm.vue"
-      )
-  },
-  {
-    path: "/product-list/:id",
-    name: "productList",
-    component: () =>
-      import(
-        /* webpackChunkName: "productList" */ "@/views/ProductArrayView.vue"
-      )
-  },
-  {
-    path: "/add-product/:productListId",
-    name: "addProduct",
-    component: () =>
-      import(/* webpackChunkName: "addProduct" */ "@/views/ProductForm.vue")
-  },
-  {
-    path: "/edit-product/:id",
-    name: "editProduct",
-    component: () =>
-      import(/* webpackChunkName: "editProduct" */ "@/views/ProductForm.vue")
-  },
-  {
-    path: "/dump",
-    name: "dump",
-    component: () =>
-      import(/* webpackChunkName: "dump" */ "@/views/Dump/DumpView.vue"),
-    children: [
-      {
-        path: "import",
-        name: "dumpImport",
+const routes: RouteConfig[] = [
+    {
+        path: "/",
+        name: "home",
+        redirect: { name: "productListArray" }
+    },
+    productListRouteConfig,
+    productRouteConfig,
+    dumpRouteConfig,
+    {
+        path: "/changelog",
+        name: "changelog",
+        component: () => import(/* webpackChunkName: "changelog" */ "@/views/ChangeLogView.vue")
+    },
+    {
+        path: "*",
         component: () =>
-          import(
-            /* webpackChunkName: "dumpImport" */ "@/views/Dump/DumpImportView.vue"
-          )
-      },
-      {
-        path: "export",
-        name: "dumpExport",
-        component: () =>
-          import(
-            /* webpackChunkName: "dumpExport" */ "@/views/Dump/DumpExportView.vue"
-          )
-      },
-      {
-        path: "clear",
-        name: "dumpClear",
-        component: () =>
-          import(
-            /* webpackChunkName: "dumpClear" */ "@/views/Dump/DumpClearView.vue"
-          )
-      }
-    ]
-  },
-  {
-    path: "*",
-    component: () =>
-      import(/* webpackChunkName: "error404" */ "@/views/ErrorNotFoundView.vue")
-  }
+            import(/* webpackChunkName: "error404" */ "@/views/ErrorNotFoundView.vue")
+    }
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes
 });
 
 export default router;

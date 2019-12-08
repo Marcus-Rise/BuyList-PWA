@@ -55,27 +55,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { ProductList } from "@/models/ProductList";
-import { IProductListService } from "@/services/IProductListService";
-import { container } from "tsyringe";
-import EditableListCmpt from "@/components/EditableListCmpt.vue";
-import { IEditableListItem } from "@/components/IEditableListItem";
-import { NotFoundException } from "@/core/Exception/NotFoundException";
-import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
-import { IProductService } from "@/services/IProductService";
+    import { Component, Vue } from "vue-property-decorator";
+    import { ProductList } from "@/models/ProductList";
+    import { IProductListService } from "@/services/IProductListService";
+    import { container } from "tsyringe";
+    import EditableListCmpt from "@/components/EditableListCmpt.vue";
+    import { IEditableListItem } from "@/components/IEditableListItem";
+    import { NotFoundException } from "@/core/Exception/NotFoundException";
+    import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
+    import { IProductService } from "@/services/IProductService";
 
-@Component({
-  components: { ListSearchFilterCmpt, EditableListCmpt }
-})
-export default class ProductListArrayView extends Vue {
-  get productListView(): IEditableListItem[] {
-    return this.filteredProductListArray.map(item => {
-      return {
-        title: item.title,
-        key: item.id.toString(),
+    @Component({
+        components: { ListSearchFilterCmpt, EditableListCmpt }
+    })
+    export default class ProductListArrayView extends Vue {
+        get productListView(): IEditableListItem[] {
+            return this.filteredProductListArray.map(item => {
+                return {
+                    title: item.title,
+                    key: item.id.toString(),
         secondary: item.toStringFormatted(),
-        href: { name: "productList", params: { id: item.id.toString() } }
+                    href: { name: "productArray", params: { productListId: item.id.toString() } }
       };
     });
   }
