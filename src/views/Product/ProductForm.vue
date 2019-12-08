@@ -102,49 +102,49 @@
         public product: Product = new Product();
 
         private readonly productService: IProductService = container.resolve(
-    "IProductService"
-  );
+            "IProductService"
+        );
 
-  mounted() {
-    if (this.$route.params.id !== undefined) {
-      this.productService.get(parseInt(this.$route.params.id)).then(item => {
-        this.product = item;
-      });
+        mounted() {
+            if (this.$route.params.id !== undefined) {
+                this.productService.get(parseInt(this.$route.params.id)).then(item => {
+                    this.product = item;
+                });
+            }
+
+            if (this.$route.params.productListId !== undefined) {
+                this.product.productListId = parseInt(this.$route.params.productListId);
+            }
+        }
+
+        create(): void {
+            if (this.validate()) {
+                if (this.isEdit) {
+                    this.productService.update(this.product).then(() => {
+                        this.routerBack();
+                    });
+                } else {
+                    this.productService.save(this.product).then(() => {
+                        this.routerBack();
+                    });
+                }
+            }
+        }
+
+        deleteItem(): void {
+            this.productService.delete(this.product).then(() => {
+                this.$router.go(-1);
+            });
+        }
+
+        routerBack(): void {
+            this.$router.go(-1);
+        }
+
+        validate(): boolean {
+            this.product.clear();
+
+            return new ProductDTO(this.product).validate();
+        }
     }
-
-    if (this.$route.params.productListId !== undefined) {
-      this.product.productListId = parseInt(this.$route.params.productListId);
-    }
-  }
-
-  create(): void {
-    if (this.validate()) {
-      if (this.isEdit) {
-        this.productService.update(this.product).then(() => {
-          this.routerBack();
-        });
-      } else {
-        this.productService.save(this.product).then(() => {
-          this.routerBack();
-        });
-      }
-    }
-  }
-
-  deleteItem(): void {
-    this.productService.delete(this.product).then(() => {
-      this.$router.go(-1);
-    });
-  }
-
-  routerBack(): void {
-    this.$router.go(-1);
-  }
-
-  validate(): boolean {
-    this.product.clear();
-
-    return new ProductDTO(this.product).validate();
-  }
-}
 </script>

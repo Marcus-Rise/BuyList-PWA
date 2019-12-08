@@ -17,20 +17,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { IStorageDumpService } from "@/services/IStorageDumpService";
-import { container } from "tsyringe";
+    import { Component, Vue } from "vue-property-decorator";
+    import { IStorageDumpService } from "@/services/IStorageDumpService";
+    import { container } from "tsyringe";
 
-@Component
-export default class DumpClearView extends Vue {
-  private readonly storageDumpService: IStorageDumpService = container.resolve(
-    "IStorageDumpService"
-  );
+    @Component
+    export default class DumpClearView extends Vue {
+        private readonly storageDumpService: IStorageDumpService = container.resolve(
+            "IStorageDumpService"
+        );
 
-  clear(): void {
-    this.storageDumpService.clear().then(() => {
-      this.$router.push("/");
-    });
-  }
-}
+        clear(): void {
+            this.storageDumpService.clear().then(() => {
+                this.$router.push("/");
+            });
+        }
+    }
 </script>
