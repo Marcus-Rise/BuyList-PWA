@@ -3,7 +3,7 @@
         v-if="!!productList"
         style="height: 100%"
     )
-        v-row(v-if="productArray.length > 0")
+        v-row
             v-col(sm="12")
                 v-card.mx-auto
                     v-toolbar(
@@ -49,21 +49,19 @@
 
                             template(v-slot:no-data)
                                 v-col
-                                    v-card.mx-auto(
-                                        max-width="344"
-                                        outlined
-                                    )
-                                        v-card-text
-                                            p.display-1.text--primary(align="center") Вперед!
+                                    v-card-text
+                                        p.display-1.text--primary(align="center") Вперед!
 
-                                        v-card-actions
-                                            v-btn(
-                                                block
-                                                x-large
-                                                color="accent"
-                                                @click="addItem"
-                                            ) Создать продукт
-            v-col(sm="12")
+                                    v-card-actions
+                                        v-btn(
+                                            block
+                                            x-large
+                                            color="accent"
+                                            @click="addItem"
+                                        ) Создать продукт
+            v-col(
+                v-if="productArray.length > 0"
+            )
                 v-card.mx-auto
                     v-toolbar(
                         color="teal"
@@ -126,12 +124,8 @@
             { text: "", value: "action", sortable: false }
         ];
 
-        private readonly productService: IProductService = container.resolve(
-            "IProductService"
-        );
-        private readonly productListService: IProductListService = container.resolve(
-            "IProductListService"
-        );
+        private readonly productService: IProductService = container.resolve("IProductService");
+        private readonly productListService: IProductListService = container.resolve("IProductListService");
 
         created() {
             this.productListService.get(parseInt(this.$route.params.productListId)).then(item => {
