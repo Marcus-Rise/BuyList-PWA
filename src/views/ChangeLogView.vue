@@ -1,5 +1,7 @@
 <template lang="pug">
-    div(v-html="source")
+    v-container
+        v-col
+            div(v-html="source")
 </template>
 
 <script lang="ts">
