@@ -64,7 +64,7 @@
         @Prop() products!: Product[];
 
         get newListPriceBenefits(): number {
-            return this.limit || 0 - this.newListPrice;
+            return (this.limit || 0) - this.newListPrice;
         }
 
         get newListPrice(): number {
