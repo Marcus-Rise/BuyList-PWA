@@ -34,10 +34,9 @@
                                         type="number"
                                         min="0"
                                         v-model="product.priority"
-                                        @change="product.priority = parseInt(product.priority)"
+                                        @input="() => {product.errors.priority = []; product.priority = parseInt(String(product.priority))}"
                                         label="Приоритет"
                                         :error-messages="product.errors.priority"
-                                        @input="product.errors.priority = []"
                                     )
                                         template(v-slot:prepend)
                                             v-icon(
@@ -50,11 +49,10 @@
                                     v-text-field(
                                         type="number"
                                         v-model="product.price"
-                                        @change="product.price = parseFloat(product.price)"
+                                        @input="() => {product.errors.price = []; product.price = parseFloat(String(product.price))}"
                                         min="1"
                                         label="Цена"
                                         :error-messages="product.errors.price"
-                                        @input="product.errors.price = []"
                                     )
                                         template(v-slot:prepend)
                                             v-icon(
