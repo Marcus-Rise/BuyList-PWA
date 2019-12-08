@@ -2,7 +2,6 @@ import { RouteConfig } from "vue-router";
 
 const dumpRouteConfig: RouteConfig = {
     path: "/dump",
-    name: "dump",
     component: () =>
         import(/* webpackChunkName: "dump" */ "@/views/Dump/DumpView.vue"),
     children: [

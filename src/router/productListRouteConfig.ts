@@ -2,7 +2,6 @@ import { RouteConfig } from "vue-router";
 
 const productListRouteConfig: RouteConfig = {
     path: "/productList",
-    name: "productList",
     component: () =>
         import(
             /* webpackChunkName: "productList" */ "@/views/ProductList/ProductListView.vue"
@@ -15,6 +14,10 @@ const productListRouteConfig: RouteConfig = {
                 import(
                     /* webpackChunkName: "productListArray" */ "@/views/ProductList/ProductListArrayView.vue"
                     )
+        },
+        {
+            path: ":productListId",
+            redirect: { name: "productArray" }
         },
         {
             path: "add",

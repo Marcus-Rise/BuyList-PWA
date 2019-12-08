@@ -81,13 +81,6 @@ module.exports = {
 
         if (process.env.NODE_ENV === "production") {
             config.plugins.push(...[
-                // Make sure that the plugin is after any plugins that add images
-                new ImageMinPlugin({
-                    disable: process.env.NODE_ENV !== "production", // Disable during development
-                    pngquant: {
-                        quality: "95-100"
-                    }
-                }),
                 new FaviconsWebpackPlugin({
                     logo: "./src/assets/logo.png",
                     prefix: ""
@@ -103,6 +96,12 @@ module.exports = {
                         yandex: false
                       }
                     }*/
+                }),
+                new ImageMinPlugin({
+                    disable: process.env.NODE_ENV !== "production", // Disable during development
+                    pngquant: {
+                        quality: "95-100"
+                    }
                 })
             ]);
         }

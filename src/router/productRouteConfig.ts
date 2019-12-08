@@ -2,7 +2,6 @@ import { RouteConfig } from "vue-router";
 
 const productRouteConfig: RouteConfig = {
     path: "/product",
-    name: "product",
     component: () =>
         import(
             /* webpackChunkName: "product" */ "@/views/Product/ProductView.vue"

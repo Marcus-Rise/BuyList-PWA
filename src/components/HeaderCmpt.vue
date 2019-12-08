@@ -49,7 +49,7 @@
                 v-list-item(
                     v-for="item of productListArray"
                     link
-                    :to="{ name: 'productList', params: { id: item.id.toString() } }"
+                    :to="{ name: 'productArray', params: { productListId: item.id.toString() } }"
                 )
                     v-list-item-icon
                         v-icon fa-list-ul

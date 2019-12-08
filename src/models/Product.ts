@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { IProductDTOJson } from "@/models/ProductDTO";
 import { AbstractValidatable, ValidationErrorsObject } from "@/core/AbstractValidatable";
 
@@ -50,9 +49,5 @@ export class Product extends AbstractValidatable {
 
   toString(): string {
     return `id: ${this.id}; title: ${this.title}; priority: ${this.priority}; price: ${this.price}`;
-  }
-
-  toStringFormatted(): string {
-    return `&#8691;${this.priority} ₽ ${this.price}`
   }
 }
