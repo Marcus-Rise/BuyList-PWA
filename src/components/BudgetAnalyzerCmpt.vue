@@ -14,12 +14,11 @@
                         )
                             v-text-field.display-1(
                                 v-model="limit"
-                                @change="limit = parseFloat(limit)"
-                                :rules="[v => parseFloat(v) > 0 || 'Сумма бюджета должна быть больше нуля']"
+                                @input="limit = parseFloat(String(limit))"
+                                :rules="[v => (!!v && v > 0) || 'Сумма бюджета должна быть больше нуля']"
                                 label="Бюджет"
                                 type="number"
                                 min="1"
-                                required
                                 outlined
                                 prepend-icon="fa-ruble-sign"
                             )
@@ -39,65 +38,55 @@
                             v-card(
                                 outlined
                             )
-                                v-card-title Сумма списка: {{ newListPrice | price}}
+                                v-card-title Сумма списка: {{ String(newListPrice) | price}}
                                 v-card-subtitle(
                                     v-if="newListPriceBenefits > 0"
-                                ) Разница в плюс: {{newListPriceBenefits | price}}
+                                ) Разница в плюс: {{String(newListPriceBenefits) | price}}
 
-                    v-row(v-if="newList")
-                        v-list
-                            v-list-item(v-for="item of newList" :key="item.key")
-                                v-list-item-content
-                                    v-list-item-title {{item.title}}
-                                    v-list-item-subtitle(
-                                        v-html="item.toStringFormatted()"
-                                    )
+                    v-row(v-if="newList && newList.length > 0")
+                        v-col
+                            slot(name="new-list" :list="newList")
 
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { container } from "tsyringe";
-import { Product } from "@/models/Product";
-import { IBudgetAnalyzerService } from "@/services/IBudgetAnalyzerService";
+    import { Component, Prop, Vue } from "vue-property-decorator";
+    import { container } from "tsyringe";
+    import { Product } from "@/models/Product";
+    import { IBudgetAnalyzerService } from "@/services/IBudgetAnalyzerService";
 
-@Component({
-  filters: {
-    price: (value: string) => `₽ ${parseFloat(value).toFixed(2)}`
-  }
-})
-export default class BudgetAnalyzerCmpt extends Vue {
-  @Prop({ type: Array, required: true }) products!: Product[];
+    @Component({
+        filters: {
+            price: (value: string) => `₽ ${parseFloat(value).toFixed(2)}`
+        }
+    })
+    export default class BudgetAnalyzerCmpt extends Vue {
+        @Prop() products!: Product[];
 
-  public limit: number = 0;
+        get newListPriceBenefits(): number {
+            return this.limit || 0 - this.newListPrice;
+        }
 
-  public newList: Product[] = [];
+        get newListPrice(): number {
+            return this.newList?.reduce((sum: number, product: Product) => {
+                return sum + product.price;
+            }, 0) || 0;
+        }
 
-  get newListPriceBenefits(): number {
-    return this.limit - this.newListPrice;
-  }
+        public newList: Product[] = [];
+        public limit: number | null = null;
+        private readonly budgetAnalyzerService: IBudgetAnalyzerService = container
+            .resolve("IBudgetAnalyzerService");
 
-  get newListPrice(): number {
-    return this.newList
-      ? this.newList.reduce((sum: number, product: Product) => {
-          return sum + product.price;
-        }, 0)
-      : 0;
-  }
+        match(): void {
+            this.newList.splice(0);
 
-  private readonly budgetAnalyzerService: IBudgetAnalyzerService = container.resolve(
-    "IBudgetAnalyzerService"
-  );
-
-  match(): void {
-    this.newList.length = 0;
-
-    if (this.limit > 0 && this.products.length > 0) {
-      this.newList = this.budgetAnalyzerService.getBestChoice(
-        this.products,
-        this.limit
-      );
+            if (this.limit && this.limit > 0 && this.products.length > 0) {
+                this.newList = this.budgetAnalyzerService.getBestChoice(
+                    this.products,
+                    this.limit
+                );
+            }
+        }
     }
-  }
-}
 </script>
