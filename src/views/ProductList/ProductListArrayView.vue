@@ -76,7 +76,7 @@
     import EditableListCmpt from "@/components/EditableListCmpt.vue";
     import { NotFoundException } from "@/core/Exception/NotFoundException";
     import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
-    import { IProductService } from "@/services/IProductService";
+    import { IProductListStoreService } from "@/services/IProductListStoreService";
 
     @Component({
         components: { ListSearchFilterCmpt, EditableListCmpt }
@@ -86,8 +86,11 @@
             return this.productListArray.filter(item => item.title.includes(this.searchQuery || ""));
         }
 
+        get productListArray(): ProductList[] {
+            return this.productListStoreService.productListArray;
+        }
+
         public searchQuery: string = "";
-        public productListArray: ProductList[] = [];
         public readonly headers: Array<{
             text: string,
             value: string,
@@ -105,23 +108,14 @@
         ];
 
         private readonly productListService: IProductListService = container.resolve("IProductListService");
-        private readonly productService: IProductService = container.resolve("IProductService");
+        private readonly productListStoreService: IProductListStoreService = container.resolve("IProductListStoreService");
 
         created() {
             this.getAll();
         }
 
         async getAll(): Promise<void> {
-            this.productListService.getAll().then(items => {
-                for (const item of items) {
-                    this.productService.getByList(item.id).then(products => {
-                        item.productsCount = products.length;
-                    });
-                }
-
-                this.productListArray.length = 0;
-                this.productListArray.push(...items);
-            });
+            return this.productListStoreService.updateAll();
         }
 
         addItem(): void {

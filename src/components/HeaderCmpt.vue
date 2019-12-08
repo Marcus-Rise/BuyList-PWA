@@ -58,33 +58,21 @@
 
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
-    import { IProductListService } from "@/services/IProductListService";
     import { container } from "tsyringe";
     import { ProductList } from "@/models/ProductList";
+    import { IProductListStoreService } from "@/services/IProductListStoreService";
 
     @Component
     export default class HeaderCmpt extends Vue {
+        get productListArray(): ProductList[] {
+            return this.productListStoreService.productListArray;
+        }
+
         public showMenu: boolean = false;
-        public productListArray: ProductList[] = [];
+        private readonly productListStoreService: IProductListStoreService = container.resolve("IProductListStoreService");
 
-        private readonly productListService: IProductListService = container.resolve(
-            "IProductListService"
-        );
-
-        async created() {
-            this.productListArray = await this.productListService.getAll();
-        }
-
-        storageDumpImport(): void {
-            this.$router.push({ name: "dumpImport" });
-        }
-
-        storageDumpExport(): void {
-            this.$router.push({ name: "dumpExport" });
-        }
-
-        storageDumpClear(): void {
-            this.$router.push({ name: "dumpClear" });
+        created() {
+            this.productListStoreService.updateAll();
         }
     }
 </script>
