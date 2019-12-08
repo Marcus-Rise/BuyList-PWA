@@ -3,48 +3,49 @@ import { AbstractValidatable } from "@/core/AbstractValidatable";
 import { IDictionary } from "@/core/IDictionary";
 
 abstract class AbstractDTO {
-  protected rules: ValidatorDictionary;
+    protected rules: ValidatorDictionary;
 
-  protected constructor(protected readonly model: AbstractValidatable) {
-    this.rules = {};
-  }
-
-  public validate(isNeedToClearModel: boolean = true): boolean {
-    this.initChildDTO();
-
-    let status: boolean = true;
-
-    if (isNeedToClearModel) {
-      this.model.clear();
+    protected constructor(protected readonly model: AbstractValidatable) {
+        this.rules = {};
     }
 
-    for (const key in this.rules) {
-      if (this.rules.hasOwnProperty(key)) {
-        const result: ValidationRuleResult = this.rules[key]();
+    public validate(isNeedToClearModel: boolean = true): boolean {
+        this.initChildDTO();
 
-        if (!this.model.errors.hasOwnProperty(key)) {
-          throw new NullPointerException(`not ${key} key in model`);
+        let status: boolean = true;
+
+        if (isNeedToClearModel) {
+            this.model.clear();
         }
 
-        if (result !== true) {
-          this.model.errors[key] = result;
-          status = false;
-        } else {
-          this.model.errors[key] = [];
+        for (const key in this.rules) {
+            if (this.rules.hasOwnProperty(key)) {
+                const result: ValidationRuleResult = this.rules[key]();
+
+                if (!this.model.errors.hasOwnProperty(key)) {
+                    throw new NullPointerException(`not ${key} key in model`);
+                }
+
+                if (result !== true) {
+                    this.model.errors[key] = result;
+                    status = false;
+                } else {
+                    this.model.errors[key] = [];
+                }
+            }
         }
-      }
+
+        return status;
     }
 
-    return status;
-  }
+    public serialize(): object {
+        this.initChildDTO();
 
-  public serialize(): object {
-    this.initChildDTO();
+        return {};
+    }
 
-    return {};
-  }
-
-  protected initChildDTO(): void {}
+    protected initChildDTO(): void {
+    }
 }
 
 type ValidatorDictionary = IDictionary<ValidatorRule>;

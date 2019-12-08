@@ -1,3 +1,3 @@
 export interface IDTO {
-  serialize(): object;
+    serialize(): object;
 }

@@ -14,15 +14,15 @@
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
-export default class ListSearchFilterCmpt extends Vue {
-  @Prop() public readonly value!: string;
+    export default class ListSearchFilterCmpt extends Vue {
+        @Prop() public readonly value!: string;
 
-  get model(): string {
-    return this.value;
-  }
+        get model(): string {
+            return this.value;
+        }
 
-  set model(val: string) {
-    this.$emit("input", val);
-  }
-}
+        set model(val: string) {
+            this.$emit("input", val);
+        }
+    }
 </script>
