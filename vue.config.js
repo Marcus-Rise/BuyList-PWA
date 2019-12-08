@@ -1,15 +1,12 @@
 const ImageMinPlugin = require("imagemin-webpack-plugin").default;
 const packageJson = require("./package");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
-
 const markdown = require("markdown-js");
 const fs = require("fs");
-const str = fs.readFileSync("CHANGELOG.md", "utf8");
-const result = markdown.makeHtml(str);
 
 process.env.VUE_APP_VERSION = packageJson.version;
 process.env.VUE_APP_AUTHOR = packageJson.author;
-process.env.VUE_APP_CHANGELOG = result;
+process.env.VUE_APP_CHANGELOG = markdown.makeHtml(fs.readFileSync("CHANGELOG.md", "utf8"));
 
 module.exports = {
     transpileDependencies: ["vuetify"],
