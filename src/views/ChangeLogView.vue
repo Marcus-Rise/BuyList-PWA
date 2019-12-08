@@ -1,7 +1,10 @@
 <template lang="pug">
     v-container
-        v-col
-            div(v-html="source")
+        v-row
+            v-col
+                v-card
+                    v-card-title Список изменений
+                    v-card-text(v-html="source")
 </template>
 
 <script lang="ts">
