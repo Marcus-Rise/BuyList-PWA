@@ -8,12 +8,16 @@ import { StorageDumpService } from "@/services/implementations/StorageDumpServic
 import { AppService } from "@/services/implementations/AppService";
 import { ProductListStoreService } from "@/services/implementations/ProductListStoreService";
 import { ThemeService } from "@/services/implementations/ThemeService";
+import { LoggerService } from "@/services/implementations/LoggerService";
 
 container
     .registerSingleton("IAppService", AppService)
     .registerSingleton("IStorageService", StorageService)
     .register("IProductListService", {
         useClass: ProductListService
+    })
+    .register("ILoggerService", {
+        useClass: LoggerService
     })
     .registerSingleton("IThemeService", ThemeService)
     .registerSingleton("IProductListStoreService", ProductListStoreService)

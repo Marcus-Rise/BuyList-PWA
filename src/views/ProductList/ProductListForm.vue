@@ -57,6 +57,7 @@
     import { IProductListService } from "@/services/IProductListService";
     import { container } from "tsyringe";
     import { ProductListDTO } from "@/models/ProductListDTO";
+    import { ILoggerService } from "@/services/ILoggerService";
 
     @Component
     export default class ProductListForm extends Vue {
@@ -68,6 +69,9 @@
 
         private readonly productListService: IProductListService = container.resolve(
             "IProductListService"
+        );
+        private readonly loggerService: ILoggerService = container.resolve(
+            "ILoggerService"
         );
 
         created() {
@@ -91,7 +95,7 @@
                         this.routerBack();
                     })
                         .catch((e) => {
-                            console.error(e);
+                            this.loggerService.error(e);
                         });
                 }
             }
