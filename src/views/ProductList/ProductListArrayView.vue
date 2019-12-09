@@ -73,13 +73,12 @@
     import { ProductList } from "@/models/ProductList";
     import { IProductListService } from "@/services/IProductListService";
     import { container } from "tsyringe";
-    import EditableListCmpt from "@/components/EditableListCmpt.vue";
     import { NotFoundException } from "@/core/Exception/NotFoundException";
     import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
     import { IProductListStoreService } from "@/services/IProductListStoreService";
 
     @Component({
-        components: { ListSearchFilterCmpt, EditableListCmpt }
+        components: { ListSearchFilterCmpt }
     })
     export default class ProductListArrayView extends Vue {
         get filteredProductListArray(): ProductList[] {
@@ -104,7 +103,7 @@
                 text: "Количество продуктов",
                 value: "productsCount"
             },
-            { text: "", value: "action", sortable: false }
+            { text: "Действия", value: "action", sortable: false }
         ];
 
         private readonly productListService: IProductListService = container.resolve("IProductListService");

@@ -73,7 +73,7 @@
                         budget-analyzer-cmpt(:products="productArray")
                             template(v-slot:new-list = "{ list }")
                                 v-data-table(
-                                    :headers="headers"
+                                    :headers="headersNewList"
                                     :items="list"
                                 )
 </template>
@@ -81,7 +81,6 @@
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
     import { container } from "tsyringe";
-    import EditableListCmpt from "@/components/EditableListCmpt.vue";
     import { Product } from "@/models/Product";
     import { IProductService } from "@/services/IProductService";
     import { ProductList } from "@/models/ProductList";
@@ -91,7 +90,7 @@
     import ListSearchFilterCmpt from "@/components/ListSearchFilterCmpt.vue";
 
     @Component({
-        components: { ListSearchFilterCmpt, BudgetAnalyzerCmpt, EditableListCmpt }
+        components: { ListSearchFilterCmpt, BudgetAnalyzerCmpt }
     })
     export default class ProductArrayView extends Vue {
         get filteredProductArray(): Product[] {
@@ -121,7 +120,26 @@
                 text: "Цена",
                 value: "price"
             },
-            { text: "", value: "action", sortable: false }
+            { text: "Действия", value: "action", sortable: false }
+        ];
+        public readonly headersNewList: Array<{
+            text: string,
+            value: string,
+            align?: "left",
+            sortable?: boolean,
+        }> = [
+            {
+                text: "Название",
+                value: "title"
+            },
+            {
+                text: "Приоритет",
+                value: "priority"
+            },
+            {
+                text: "Цена",
+                value: "price"
+            }
         ];
 
         private readonly productService: IProductService = container.resolve("IProductService");
