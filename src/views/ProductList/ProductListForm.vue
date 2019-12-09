@@ -89,7 +89,10 @@
                 } else {
                     this.productListService.save(this.productList).then(() => {
                         this.routerBack();
-                    });
+                    })
+                        .catch((e) => {
+                            console.error(e);
+                        });
                 }
             }
         }
