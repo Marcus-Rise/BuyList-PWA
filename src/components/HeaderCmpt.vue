@@ -2,7 +2,13 @@
     div
         v-app-bar
             v-toolbar-title BuyList
+
             v-spacer
+
+            theme-switcher
+
+            v-spacer
+
             v-app-bar-nav-icon(@click="showMenu = true")
 
         v-navigation-drawer(
@@ -50,8 +56,11 @@
     import { container } from "tsyringe";
     import { ProductList } from "@/models/ProductList";
     import { IProductListStoreService } from "@/services/IProductListStoreService";
+    import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
 
-    @Component
+    @Component({
+        components: { ThemeSwitcher }
+    })
     export default class HeaderCmpt extends Vue {
         get productListArray(): ProductList[] {
             return this.productListStoreService.productListArray;

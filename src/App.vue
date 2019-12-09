@@ -8,15 +8,25 @@
         footer-cmp
 </template>
 
-<script>
+<script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
-    import HeaderCmpt from "@/components/HeaderCmpt";
-    import FooterCmp from "@/components/FooterCmp";
-    import AppUpdateCmpt from "@/components/AppUpdateCmpt";
+    import HeaderCmpt from "@/components/HeaderCmpt.vue";
+    import FooterCmp from "@/components/FooterCmp.vue";
+    import AppUpdateCmpt from "@/components/AppUpdateCmpt.vue";
+    import { IThemeService } from "@/services/IThemeService";
+    import { container } from "tsyringe";
 
     @Component({
         components: { AppUpdateCmpt, FooterCmp, HeaderCmpt }
     })
     export default class App extends Vue {
+        private readonly themeService: IThemeService = container.resolve("IThemeService");
+
+        created(): void {
+            this.themeService.getIsDark()
+                .then((res) => {
+                    this.$vuetify.theme.dark = res;
+                });
+        }
     }
 </script>
