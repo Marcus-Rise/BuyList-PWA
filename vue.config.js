@@ -7,6 +7,7 @@ const fs = require("fs");
 process.env.VUE_APP_VERSION = packageJson.version;
 process.env.VUE_APP_AUTHOR = packageJson.author;
 process.env.VUE_APP_CHANGELOG = markdown.makeHtml(fs.readFileSync("CHANGELOG.md", "utf8"));
+process.env.VUE_APP_README = markdown.makeHtml(fs.readFileSync("README.md", "utf8"));
 
 module.exports = {
     transpileDependencies: ["vuetify"],

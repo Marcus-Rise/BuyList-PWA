@@ -3,7 +3,7 @@
         v-row
             v-col
                 v-card
-                    v-card-title Список изменений
+                    v-card-title О программе
                     v-card-text(v-html="source")
 </template>
 
@@ -13,7 +13,7 @@
     import { IAppService } from "@/services/IAppService";
 
     @Component
-    export default class ChangeLogView extends Vue {
-        public readonly source: string = container.resolve<IAppService>("IAppService").changeLog;
+    export default class ReadMeView extends Vue {
+        public readonly source: string = container.resolve<IAppService>("IAppService").readme;
     }
 </script>

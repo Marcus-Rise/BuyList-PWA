@@ -1,40 +1,16 @@
 <template lang="pug">
     div
         v-app-bar
-            v-app-bar-nav-icon(@click="showMenu = true")
             v-toolbar-title BuyList
             v-spacer
-
-            v-menu(
-                left
-                bottom
-            )
-                template( v-slot:activator="{ on }")
-                    v-btn(icon v-on="on")
-                        v-icon fa-ellipsis-v
-
-                v-list
-                    v-list-item(
-                        link
-                        :to="{ name: \"dumpExport\" }"
-                    )
-                        v-list-item-title Экспорт данных
-                    v-list-item(
-                        link
-                        :to="{ name: \"dumpImport\" }"
-                    )
-                        v-list-item-title Импорт данных
-                    v-list-item(
-                        link
-                        :to="{ name: \"dumpClear\" }"
-                    )
-                        v-list-item-title Очистить данные
+            v-app-bar-nav-icon(@click="showMenu = true")
 
         v-navigation-drawer(
             v-model="showMenu"
             absolute
             temporary
             dark
+            right
         )
             v-list-item
                 v-list-item-content BuyList
@@ -46,14 +22,27 @@
                     v-list-item-icon
                         v-icon fa-list-ul
                     v-list-item-content Все списки
-                v-list-item(
-                    v-for="item of productListArray"
-                    link
-                    :to="{ name: 'productArray', params: { productListId: item.id.toString() } }"
-                )
+                v-list-item(link :to="{ name: 'changelog' }")
                     v-list-item-icon
-                        v-icon fa-list-ul
-                    v-list-item-content Список "{{item.title}}"
+                        v-icon fa-newspaper
+                    v-list-item-content Что нового
+                v-list-item(link :to="{ name: 'readme' }")
+                    v-list-item-icon
+                        v-icon fa-question-circle
+                    v-list-item-content О программе
+                v-list-item(link :to="{ name: 'dumpExport' }")
+                    v-list-item-icon
+                        v-icon fa-file-export
+                    v-list-item-content Экпорт данных
+                v-list-item(link :to="{ name: 'dumpImport' }")
+                    v-list-item-icon
+                        v-icon fa-file-import
+                    v-list-item-content Импорт данных
+                v-list-item(link :to="{ name: 'dumpClear' }")
+                    v-list-item-icon
+                        v-icon fa-trash
+                    v-list-item-content Стереть данные
+
 </template>
 
 <script lang="ts">

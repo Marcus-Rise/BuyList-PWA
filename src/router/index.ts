@@ -21,6 +21,11 @@ const routes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "changelog" */ "@/views/ChangeLogView.vue")
     },
     {
+        path: "/about",
+        name: "readme",
+        component: () => import(/* webpackChunkName: "readme" */ "@/views/ReadMeView.vue")
+    },
+    {
         path: "*",
         component: () =>
             import(/* webpackChunkName: "error404" */ "@/views/ErrorNotFoundView.vue")
